@@ -10,6 +10,18 @@ import pandas as pd
 
 sys.path.append("./")
 
+def create_csv_file(filepath, fieldnames):
+    with open(filepath, "a", newline='') as f:
+        logger = csv.DictWriter(f, fieldnames=fieldnames)
+        logger.writeheader()
+
+def append_csv_file(csv_file, row, fieldnames):
+    with open(csv_file, "a", newline='') as f:
+        logger = csv.DictWriter(f, fieldnames=fieldnames)
+        logger.writerow(row)
+
+def load_csv_file(csv_file):
+    return pd.read_csv(csv_file)
 
 def save_json(filepath, content, append=False):
 	"""
