@@ -46,7 +46,7 @@ def line_smoother_convolve(y, window_size=31):
 def median_filter_1d(x, pad=20, kernel=11):
 	half_pad = int(pad/2)
 	x_pad = np.pad(x, pad, 'edge')
-	x_filtered = median_filter(x_pad, kernel_size=kernel)[half_pad:-half_pad]
+	x_filtered = median_filter(x_pad, kernel_size=kernel)[pad:-pad]
 	return x_filtered
 
 def butter_lowpass(cutoff, fs, order=5):
