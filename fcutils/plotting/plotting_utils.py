@@ -5,7 +5,7 @@ from matplotlib import cm
 from matplotlib import gridspec
 from collections import namedtuple
 
-from matplotlib_config import *
+from .matplotlib_config import *
 
 
 # ! other stuf
