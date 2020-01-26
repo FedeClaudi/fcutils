@@ -8,7 +8,19 @@ from collections import namedtuple
 from .matplotlib_config import *
 
 
-# ! other stuf
+
+def set_figure_subplots_aspect(
+			left  = 0.125,right = 0.9, bottom = 0.06, 
+			top = 0.96, wspace = 0.2, hspace = 0.3): 
+	plt.subplots_adjust(
+			left  = left,  # the left side of the subplots of the figure
+			right = right,    # the right side of the subplots of the figure
+			bottom = bottom,   # the bottom of the subplots of the figure
+			top = top,      # the top of the subplots of the figure
+			wspace = wspace,   # the amount of width reserved for blank space between subplots
+			hspace = hspace,   # the amount of height reserved for white space between subplots
+		)
+
 def clean_axes(f):
 	sns.despine(fig=f, offset=10, trim=False, left=False, right=True)
 
