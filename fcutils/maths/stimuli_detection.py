@@ -6,7 +6,7 @@ sys.path.append('./')
 import numpy as np
 import pandas as pd
 
-from .maths.filtering import *
+from .filtering import *
 
 
 """
