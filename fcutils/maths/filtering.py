@@ -6,7 +6,8 @@ import pandas as pd
 
 from scipy.signal import butter, lfilter, freqz, resample, wiener, gaussian
 from scipy.ndimage import filters
-
+from scipy.signal import medfilt as median_filter
+from scipy.interpolate import interp1d
 
 
 def upsample_signal(start_fps, goal_fps, signal):
