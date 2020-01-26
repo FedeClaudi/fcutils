@@ -5,8 +5,8 @@ from matplotlib import cm
 from matplotlib import gridspec
 from collections import namedtuple
 
-from .maths.math_utils import find_nearest
-from .plotting.matplotlib_config import *
+from ..maths.math_utils import find_nearest
+from .matplotlib_config import *
 
 
 
