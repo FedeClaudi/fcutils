@@ -91,7 +91,6 @@ def plot_shaded_withline(ax, x, y, z=None, label=None, alpha=.15,  **kwargs):
 
 	ax.plot(x, y, alpha=1, label=label, **kwargs)
 
-
 def rose_plot(ax, angles, nbins=16, theta_min=0, theta_max=360, 
 				density=None, offset=0, lab_unit="degrees",
 				start_zero=False, **kwargs):

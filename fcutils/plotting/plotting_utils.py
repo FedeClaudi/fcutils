@@ -5,8 +5,7 @@ from matplotlib import cm
 from matplotlib import gridspec
 from collections import namedtuple
 
-from .maths.math_utils import find_nearest
-from .plotting.matplotlib_config import *
+from matplotlib_config import *
 
 
 # ! other stuf
@@ -61,8 +60,8 @@ def save_figure(f, path):
 	"""
 		Paths should be the complete path to where the figure should be saved but without suffix
 	"""
-    f.savefig("{}.svg".format(path))
-    f.savefig("{}.png".format(path))
+	f.savefig("{}.svg".format(path))
+	f.savefig("{}.png".format(path))
 
 def close_figure(f):
 	plt.close(f)
