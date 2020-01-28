@@ -21,7 +21,7 @@ def ortholines(ax, orientations, values, color=[.7, .7, .7], lw=3, alpha=.5, ls=
 
 	"""
 	if not isinstance(orientations, list): orientations = [orientations]
-	if not isinstance(values, list): values = [values]
+	if not isinstance(values, (list, np.ndarray)): values = [values]
 
 	for o,v in zip(orientations, values):
 		if o == 0:

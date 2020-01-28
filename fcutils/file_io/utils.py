@@ -22,7 +22,6 @@ def connected_to_internet(url='http://www.google.com/', timeout=5):
 	return False
 
 
-
 def listdir(fld):
 	"""
 	List the files into a folder with the coplete file path instead of the relative file path like os.listdir.
