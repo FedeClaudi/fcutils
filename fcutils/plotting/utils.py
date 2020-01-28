@@ -68,11 +68,13 @@ def show(): plt.show()
 def ticksrange(start, stop, step):
 	return np.arange(start, stop + step, step)
 
-def save_figure(f, path):
+def save_figure(f, path, svg=False):
 	"""
 		Paths should be the complete path to where the figure should be saved but without suffix
 	"""
-	f.savefig("{}.svg".format(path))
+	if svg:
+		f.savefig("{}.svg".format(path))
+
 	f.savefig("{}.png".format(path))
 
 def close_figure(f):
