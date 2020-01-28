@@ -76,6 +76,7 @@ def save_figure(f, path, svg=False):
 		f.savefig("{}.svg".format(path))
 
 	f.savefig("{}.png".format(path))
+	print(" saved figure at: "+path)
 
 def close_figure(f):
 	plt.close(f)
