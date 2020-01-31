@@ -3,6 +3,18 @@ import cv2
 import os
 import numpy as np
 
+def get_cap_from_file(videopath):
+    try:
+        cap = cv2.VideoCapture(videofilepath)
+    except:
+        raise ValueError("Could not open video at: "+videopath)
+
+    ret, frame = cap.read() 
+    if not ret:
+        raise ValueError("Something went wrong, can't read form video: "+videopath)
+
+    return cap
+
 def get_cap_selected_frame(cap, show_frame):
         cap.set(1, show_frame)
         ret, frame = cap.read() 
