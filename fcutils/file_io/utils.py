@@ -41,17 +41,29 @@ def get_subdirs(folderpath):
 	return [ f.path for f in os.scandir(folderpath) if f.is_dir() ]
 
 
-def check_create_folder(folderpath):
+def check_create_folder(folderpath, raise_error=False):
 	# Check if a folder exists, otherwise creates it
 	if not os.path.isdir(folderpath):
-		os.mkdir(folderpath)
+		if raise_error:
+			raise FileNotFoundError("Could not find directory: {}".format(folderpath))
+		else:
+			os.mkdir(folderpath)
 
-def check_folder_empty(folderpath):
+
+def check_folder_empty(folderpath, raise_error=False):
 	if not len(os.listdir(folderpath)):
 		return True
 	else:
-		return False
+		if not raise_error:
+			return False
+		else:
+			raise FileExistsError("The folder {} is not empty".format(folderpath))
 
-def check_file_exists(filepath):
+def check_file_exists(filepath, raise_error=False):
 	# Check if a file with the given path exists already
-	return os.path.isfile(filepath)
+	if os.path.isfile(filepath): 
+		return True
+	elif raise_error:
+		raise FileExistsError("File {} doesn't exist")
+	else:
+		return False
