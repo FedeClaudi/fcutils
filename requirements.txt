@@ -7,3 +7,4 @@ opencv-python
 vtk
 tqdm
 statsmodels
+git+https://github.com/FedeClaudi/fcutils.git

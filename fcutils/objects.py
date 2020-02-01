@@ -33,3 +33,15 @@ def is_any_item_in_list(L1, L2):
         return True
     else:
         return False
+
+def calc_prob_item_in_list(ls, it):
+	"""[Calculates the frequency of occurences of item in list]
+	
+	Arguments:
+		ls {[list]} -- [list of items]
+		it {[int, array, str]} -- [items]
+	"""
+
+	n_items = len(ls)
+	n_occurrences = len([x for x in ls if x == it])
+	return n_occurrences/n_items
