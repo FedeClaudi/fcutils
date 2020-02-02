@@ -1,6 +1,14 @@
-# fedes_utils
-Bunch of utility functions that I use across a number of repos.
+# fcutils
+Utility functions used across a number of projects.
+These mainly automate/facilitate handling of files input/output, 
+some maths/stats, dealing with videos and improving the aesthetics of plots.
+Given that this code is mainly for personal use, don't expect it to be
+fully documented or organized, sorry. 
 
+For any issue, bug or feature request please open an issue or a pull request.
+
+
+# Installation
 Install with
 ```
 pip install git+https://github.com/FedeClaudi/fcutils.git
@@ -9,4 +17,12 @@ pip install git+https://github.com/FedeClaudi/fcutils.git
 Update with:
 ```
 pip install git+https://github.com/FedeClaudi/fcutils.git --update
+```
+
+## Additional packages
+Part of the code relies on [neuroanalysis](https://github.com/campagnola/neuroanalysis/tree/master/neuroanalysis),
+please intall it:
+
+```
+pip install git+https://github.com/campagnola/neuroanalysis.git
 ```
