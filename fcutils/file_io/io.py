@@ -10,6 +10,7 @@ import pandas as pd
 
 sys.path.append("./")
 
+# --------------------------------- CSV FILES -------------------------------- #
 def create_csv_file(filepath, fieldnames):
     with open(filepath, "a", newline='') as f:
         logger = csv.DictWriter(f, fieldnames=fieldnames)
@@ -23,6 +24,9 @@ def append_csv_file(csv_file, row, fieldnames):
 def load_csv_file(csv_file):
     return pd.read_csv(csv_file)
 
+
+
+# ----------------------------------- JSON ----------------------------------- #
 def save_json(filepath, content, append=False):
 	"""
 	Saves content to a JSON file
@@ -41,7 +45,21 @@ def save_json(filepath, content, append=False):
 		with open(filepath, 'w+') as json_file:
 			json.dump(content, json_file, indent=4)
 
+def load_json(filepath):
+	"""
+	Load a JSON file
 
+	:param filepath: path to a file
+
+	"""
+	if not os.path.isfile(filepath) or not ".json" in filepath.lower(): raise ValueError("unrecognized file path: {}".format(filepath))
+	with open(filepath) as f:
+		data = json.load(f)
+	return data
+
+
+
+# ----------------------------------- YAML ----------------------------------- #
 def save_yaml(filepath, content, append=False, topcomment=None):
 	"""
 	Saves content to a yaml file
@@ -63,17 +81,6 @@ def save_yaml(filepath, content, append=False, topcomment=None):
 			yaml_file.write(topcomment)
 		yaml.dump(content,yaml_file, default_flow_style=False, indent=4)
 
-def load_json(filepath):
-	"""
-	Load a JSON file
-
-	:param filepath: path to a file
-
-	"""
-	if not os.path.isfile(filepath) or not ".json" in filepath.lower(): raise ValueError("unrecognized file path: {}".format(filepath))
-	with open(filepath) as f:
-		data = json.load(f)
-	return data
 
 def load_yaml(filepath):
 	"""
@@ -85,14 +92,3 @@ def load_yaml(filepath):
 	if filepath is None or not os.path.isfile(filepath): raise ValueError("unrecognized file path: {}".format(filepath))
 	if not "yml" in filepath and not "yaml" in filepath: raise ValueError("unrecognized file path: {}".format(filepath))
 	return yaml.load(open(filepath), Loader=yaml.FullLoader)
-
-
-def load_feather(path):
-    return pd.read_feather(path)
-
-def save_df(df, filepath):
-        df.to_pickle(filepath)
-
-def load_df(filepath):
-        return pd.read_pickle(filepath)
-

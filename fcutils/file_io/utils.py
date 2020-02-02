@@ -5,7 +5,7 @@ from collections import namedtuple
 import requests
 import yaml
 
-
+# ----------------------------------- MISC ----------------------------------- #
 def connected_to_internet(url='http://www.google.com/', timeout=5):
 	"""
 		Check that there is an internet connection
@@ -22,6 +22,7 @@ def connected_to_internet(url='http://www.google.com/', timeout=5):
 	return False
 
 
+# ---------------------------------- FOLDERS --------------------------------- #
 def listdir(fld):
 	"""
 	List the files into a folder with the coplete file path instead of the relative file path like os.listdir.
@@ -59,6 +60,7 @@ def check_folder_empty(folderpath, raise_error=False):
 		else:
 			raise FileExistsError("The folder {} is not empty".format(folderpath))
 
+# ----------------------------------- FILES ---------------------------------- #
 def check_file_exists(filepath, raise_error=False):
 	# Check if a file with the given path exists already
 	if os.path.isfile(filepath): 

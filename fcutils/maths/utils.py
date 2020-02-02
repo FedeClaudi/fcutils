@@ -15,10 +15,9 @@ from collections import namedtuple
 from scipy import stats
 
 
-# ! ARRAY NORMALISATION and FUNCTIONS
 def binArray(data, axis, binstep, binsize, func=np.nanmean):
 	"""
-		Bins a numpy array
+		Bins a numpy array along a specific axis
 	"""
 	data = np.array(data)
 	dims = np.array(data.shape)
@@ -76,31 +75,6 @@ def find_hist_peak(arr, bins=None, density=True):
 	yi, y = np.argmax(hist), np.max(hist)
 	x = np.mean(binedges[yi:yi+2])
 	return yi, y, x
-
-
-# ! MOMENTS
-def moving_average(arr, window_size):
-	cumsum_vec = np.cumsum(np.insert(arr, 0, 0)) 
-	return (cumsum_vec[window_size:] - cumsum_vec[:-window_size]) / window_size
-
-def mean_confidence_interval(data, confidence=0.95):
-	mean, var, std = stats.bayes_mvs(data)
-	res = namedtuple("confidenceinterval", "mean low high")
-	return res(mean.statistic, mean.minmax[0], mean.minmax[1])
-
-def percentile_range(data, low=5, high=95):
-	"""[Calculates the range between the low and high percentiles]
-	"""
-
-	lowp = np.percentile(data, low)
-	highp = np.percentile(data, high)
-	median = np.median(data)
-	mean = np.mean(data)
-	std = np.std(data)
-	sem = stats.sem(data)
-
-	res = namedtuple("percentile", "low median mean high std sem")
-	return res(lowp, median, mean, highp, std, sem)
 
 # ! MISC
 def fill_nans_interpolate(y, pkind='linear'):

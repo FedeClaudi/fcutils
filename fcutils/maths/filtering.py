@@ -9,6 +9,7 @@ from scipy.ndimage import filters
 from scipy.signal import medfilt as median_filter
 from scipy.interpolate import interp1d
 
+from neuroanalysis.filter import bessel_filter, butterworth_filter, savgol_filter, downsample
 
 def upsample_signal(start_fps, goal_fps, signal):
     n_seconds = len(signal)/start_fps
@@ -41,7 +42,6 @@ def line_smoother_convolve(y, window_size=31):
 	box = np.ones(window_size)/window_size
 	y_smooth = np.convolve(y, box, mode='same')
 	return y_smooth
-
 
 def median_filter_1d(x, pad=20, kernel=11):
 	half_pad = int(pad/2)

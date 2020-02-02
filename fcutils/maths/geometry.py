@@ -16,27 +16,6 @@ from scipy import stats
 
 
 
-# ! GEOMETRY
-def average_angles(angles):
-    """Average (mean) of angles
-
-    Return the average of an input sequence of angles. The result is between
-    ``0`` and ``2 * math.pi``.
-    If the average is not defined (e.g. ``average_angles([0, math.pi]))``,
-    a ``ValueError`` is raised.
-    """
-
-    x = sum(math.cos(a) for a in angles)
-    y = sum(math.sin(a) for a in angles)
-
-    if x == 0 and y == 0:
-        raise ValueError(
-            "The angle average of the inputs is undefined: %r" % angles)
-
-    # To get outputs from -pi to +pi, delete everything but math.atan2() here.
-    return math.fmod(math.atan2(y, x) + 2 * math.pi, 2 * math.pi)
-
-
 def subtract_angles(lhs, rhs):
     """Return the signed difference between angles lhs and rhs
 
@@ -49,7 +28,6 @@ def subtract_angles(lhs, rhs):
 
 def slope(x1, y1, x2, y2):
 	return (y2-y1)/(x2-x1)
-
 
 def calc_distance_between_point_and_line(line_points, p3):
 	"""[Calcs the perpendicular distance between a point and a line]
@@ -70,8 +48,6 @@ def cals_distance_between_vector_and_line(line_points, v):
         p = [v[i, 0], v[i, 1]]
         dist.append(calc_distance_between_point_and_line(line_points, p))
     return dist
-
-
 
 def calc_distance_between_points_2d(p1, p2):
 	'''calc_distance_between_points_2d [summary]
@@ -168,19 +144,19 @@ def calc_distance_between_points_two_vectors_2d(v1, v2):
 		dist = [calc_distance_between_points_2d(p1, p2) for p1, p2 in zip(v1, v2)]
 	return dist
 
-def calc_distance_from_shelter(v, shelter):
-	"""[Calculates the euclidean distance from the shelter at each timepoint]
+def calc_distance_from_point(v, point):
+	"""[Calculates the euclidean distance from the point at each timepoint]
 	
 	Arguments:
 		v {[np.ndarray]} -- [2D array with XY coordinates]
-		shelter {[tuple]} -- [tuple of length 2 with X and Y coordinates of shelter]
+		point {[tuple]} -- [tuple of length 2 with X and Y coordinates of point]
 	"""
 	assert isinstance(v, np.ndarray), 'Input data needs to be a numpy array'
 	assert v.shape[1] == 2, 'Input array must be a 2d array with two columns'
 
-	shelter_vector = np.array(shelter)
-	shelter_vector = np.tile(shelter_vector, (v.shape[0], 1))
-	return calc_distance_between_points_two_vectors_2d(v, shelter_vector)
+	point_vector = np.array(point)
+	point_vector = np.tile(point_vector, (v.shape[0], 1))
+	return calc_distance_between_points_two_vectors_2d(v, point_vector)
 
 def angle_between_points_2d_clockwise(p1, p2):
 	'''angle_between_points_2d_clockwise [Determines the angle of a straight line drawn between point one and two. 

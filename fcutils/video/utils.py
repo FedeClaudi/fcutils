@@ -32,10 +32,6 @@ def get_video_params(cap):
     fps    = cap.get(cv2.CAP_PROP_FPS)
     return nframes, width, height, fps 
 
-
-
-
-
 def opencv_write_clip(videopath, frames_data, w=None, h=None, framerate=None, start=None, stop=None,
                         format='.mp4', iscolor=False):
     """ create a .cv2 videowriter and  write clip to file """

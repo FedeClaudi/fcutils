@@ -7,8 +7,11 @@ import statsmodels.api as sm
 import math
 
 
-# ! EXPONENTIALS AND LOGARITHMS
+# ---------------------------------------------------------------------------- #
+#                      COLLECTION OF SOME MATH FUNCTIONS                       #
+# ---------------------------------------------------------------------------- #
 
+# ------------------------ EXPONENTIALS AND LOGARITHMS ----------------------- #
 def fexponential(x, a, b, c):
 	return a * np.exp(-b * x) + c
 
@@ -19,7 +22,7 @@ def exponential(x, a, b, c, d):
 def flogarithmic(x, a, b, c):
   return a * np.log(b * x) + c
 
-# ! SIGMOIDS
+# --------------------------------- SIGMOIDS --------------------------------- #
 def logistic(x, L ,x0, k, b):
 	"""
 	L -> shirnks the function on the Y axis. 
@@ -78,18 +81,9 @@ def centered_error_function(x, x0=0, scale=1, L=1):
 	norm = stats.norm(x0, scale)
 	return norm.cdf(x)*L +b
 
-# ! FIT MATH FUNCTIONS
-# ? Functions to pass to curve_fit
-def polyfit(order, x, y):
-	#  calculate polynomial
-	z = np.polyfit(x, y, order)
-	f = np.poly1d(z)
-	return f
-
-
+# ------------------------------ OTHER FUNCTIONS ----------------------------- #
 def linear_func(x, a, b):
 	return x*a + b
-
 
 def step_function(x,a, b, c):
 	# Step function
@@ -99,7 +93,15 @@ def step_function(x,a, b, c):
 	"""
 	return a * (np.sign(x-b) + c)
 
-# ? regression
+# ---------------------------------------------------------------------------- #
+#                            REGRESSION AND FITTING                            #
+# ---------------------------------------------------------------------------- #
+def polyfit(order, x, y):
+	#  calculate polynomial
+	z = np.polyfit(x, y, order)
+	f = np.poly1d(z)
+	return f
+
 def linear_regression(X,Y, robust=False):
 	import statsmodels.api as sm
 
@@ -120,7 +122,19 @@ def linear_regression(X,Y, robust=False):
 	
 	return X, res.params[0], res.params[1], res
 
-# ! STATISTICAL DISTRIBUTIONS
+def fit_kde(x, **kwargs):
+	""" Fit a KDE using StatsModels. 
+		kwargs is useful to pass stuff to the fit, e.g. the binwidth (bw)"""
+	x = np.array(x).astype(np.float)
+	kde = sm.nonparametric.KDEUnivariate(x)
+	kde.fit(**kwargs) # Estimate the densities
+	return kde
+
+
+# ---------------------------------------------------------------------------- #
+#                                 DISTRIBUTIONS                                #
+# ---------------------------------------------------------------------------- #
+
 def get_distribution(dist, *args, n_samples=10000):
 	if dist == 'uniform':
 		return np.random.uniform(args[0], args[1], n_samples)
@@ -143,7 +157,7 @@ def get_parametric_distribution(dist, *args,  x0=0.000001, x1=0.9999999, **kwarg
 	return dist, support, density
 
 
-# ! STATISTICAL DISTRIBUTIONS PARAMETERS
+# --------------------- get parameters for distirbutions --------------------- #
 def beta_distribution_params(a=None, b=None, mu=None, sigma=None, omega=None, kappa=None):
 	"""[converts parameters of beta into different formulations]
 	
@@ -186,13 +200,6 @@ def gamma_distribution_params(mean=None, sd=None, mode=None, shape=None, rate=No
 		return mu, sd
 	return shape, rate
 
-def fit_kde(x, **kwargs):
-	""" Fit a KDE using StatsModels. 
-		kwargs is useful to pass stuff to the fit, e.g. the binwidth (bw)"""
-	x = np.array(x).astype(np.float)
-	kde = sm.nonparametric.KDEUnivariate(x)
-	kde.fit(**kwargs) # Estimate the densities
-	return kde
 
 
 
