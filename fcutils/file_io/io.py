@@ -10,7 +10,14 @@ import pandas as pd
 
 sys.path.append("./")
 
+from utils import check_file_exists
+
 # --------------------------------- CSV FILES -------------------------------- #
+def load_excel_file(filepath):
+    check_file_exists(filepath, raise_error=True)
+    return pyexcel.get_records(file_name=self.mice_records)
+
+
 def create_csv_file(filepath, fieldnames):
     with open(filepath, "a", newline="") as f:
         logger = csv.DictWriter(f, fieldnames=fieldnames)
@@ -18,12 +25,14 @@ def create_csv_file(filepath, fieldnames):
 
 
 def append_csv_file(csv_file, row, fieldnames):
+    check_file_exists(csv_file, raise_error=True)
     with open(csv_file, "a", newline="") as f:
         logger = csv.DictWriter(f, fieldnames=fieldnames)
         logger.writerow(row)
 
 
 def load_csv_file(csv_file):
+    check_file_exists(csv_file, raise_error=True)
     return pd.read_csv(csv_file)
 
 

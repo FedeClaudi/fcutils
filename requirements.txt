@@ -6,5 +6,6 @@ scipy
 opencv-python
 vtk
 tqdm
+pyyaml
 statsmodels
 git+https://github.com/FedeClaudi/fcutils.git
