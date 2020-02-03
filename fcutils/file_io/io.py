@@ -10,7 +10,7 @@ import pandas as pd
 
 sys.path.append("./")
 
-from utils import check_file_exists
+from fcutils.file_io.utils import check_file_exists
 
 # --------------------------------- CSV FILES -------------------------------- #
 def load_excel_file(filepath):
