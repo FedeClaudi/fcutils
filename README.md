@@ -18,11 +18,3 @@ Update with:
 ```
 pip install git+https://github.com/FedeClaudi/fcutils.git --update
 ```
-
-## Additional packages
-Part of the code relies on [neuroanalysis](https://github.com/campagnola/neuroanalysis/tree/master/neuroanalysis),
-please intall it:
-
-```
-pip install git+https://github.com/campagnola/neuroanalysis.git
-```
