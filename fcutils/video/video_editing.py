@@ -1,9 +1,13 @@
 import sys
-sys.path.append('./')  
+
+sys.path.append("./")
 
 import warnings as warn
-try: import cv2
-except: pass
+
+try:
+    import cv2
+except:
+    pass
 import os
 from tempfile import mkdtemp
 from tqdm import tqdm
@@ -19,14 +23,25 @@ import time
 from .file_io.files_io import *
 
 
-paths_file = 'paths.yml'
+paths_file = "paths.yml"
+
 
 class Editor:
     def __init__(self):
         raise NotImplementedError("This code is old and full of stuff that I broke")
 
-    def trim_clip(self, videopath, savepath, frame_mode=False, start=0.0, stop=0.0,
-                    start_frame=None, stop_frame=None, sel_fps=None, lighten=False):
+    def trim_clip(
+        self,
+        videopath,
+        savepath,
+        frame_mode=False,
+        start=0.0,
+        stop=0.0,
+        start_frame=None,
+        stop_frame=None,
+        sel_fps=None,
+        lighten=False,
+    ):
         """trim_clip [take a videopath, open it and save a trimmed version between start and stop. Either 
         looking at a proportion of video (e.g. second half) or at start and stop frames]
         
@@ -46,30 +61,41 @@ class Editor:
 
         # Open reader and writer
         cap = cv2.VideoCapture(videopath)
-        nframes, width, height, fps  = self.get_video_params(cap)
-    
+        nframes, width, height, fps = self.get_video_params(cap)
+
         if sel_fps is not None:
             fps = sel_fps
-        writer = self.open_cvwriter(savepath, w=width, h=height, framerate=int(fps), format='.mp4', iscolor=False)
+        writer = self.open_cvwriter(
+            savepath,
+            w=width,
+            h=height,
+            framerate=int(fps),
+            format=".mp4",
+            iscolor=False,
+        )
 
         # if in proportion mode get start and stop mode
         if not frame_mode:
-            start_frame = int(round(nframes*start))
-            stop_frame = int(round(nframes*stop))
-        
+            start_frame = int(round(nframes * start))
+            stop_frame = int(round(nframes * stop))
+
         # Loop over frames and save the ones that matter
-        print('Processing: ', videopath)
+        print("Processing: ", videopath)
         cur_frame = 0
-        cap.set(1,start_frame)
+        cap.set(1, start_frame)
         while True:
             cur_frame += 1
-            if cur_frame % 100 == 0: print('Current frame: ', cur_frame)
-            if cur_frame <= start_frame: continue
-            elif cur_frame >= stop_frame: break
+            if cur_frame % 100 == 0:
+                print("Current frame: ", cur_frame)
+            if cur_frame <= start_frame:
+                continue
+            elif cur_frame >= stop_frame:
+                break
             else:
-                
+
                 ret, frame = cap.read()
-                if not ret: break
+                if not ret:
+                    break
                 else:
                     frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
@@ -77,7 +103,6 @@ class Editor:
                         a = 1
                     writer.write(frame)
         writer.release()
-
 
     def split_clip(self, clip, number_of_clips=4, dest_fld=None):
         """[Takes a video and splits into clips of equal length]
@@ -91,32 +116,39 @@ class Editor:
         """
 
         fld, name = os.path.split(clip)
-        name, ext = name.split('.')
-        if dest_fld is None: dest_fld = fld
+        name, ext = name.split(".")
+        if dest_fld is None:
+            dest_fld = fld
 
         cap = cv2.VideoCapture(clip)
-        nframes, width, height, fps  = self.get_video_params(cap)
+        nframes, width, height, fps = self.get_video_params(cap)
 
-        frames_array = np.linspace(0, nframes, nframes+1)
+        frames_array = np.linspace(0, nframes, nframes + 1)
         clips_frames = np.array_split(frames_array, number_of_clips)
 
         for i, clip in enumerate(clips_frames):
-            
+
             start, end = clip[0], clip[-1]
-            print('Clip {} of {}, frame range: {}-{}'.format(i, number_of_clips, start, end))
-            if i == 0: 
-                print(' ... skipping the first clip')
+            print(
+                "Clip {} of {}, frame range: {}-{}".format(
+                    i, number_of_clips, start, end
+                )
+            )
+            if i == 0:
+                print(" ... skipping the first clip")
                 continue
-            cap.set(1,start)
-            
-            savename = os.path.join(dest_fld, name+'_clip{}.'.format(i)+ext)
-            writer = self.open_cvwriter(savename, w=width, h=height, framerate=fps, iscolor=False)
+            cap.set(1, start)
+
+            savename = os.path.join(dest_fld, name + "_clip{}.".format(i) + ext)
+            writer = self.open_cvwriter(
+                savename, w=width, h=height, framerate=fps, iscolor=False
+            )
 
             counter = start
             while counter <= end:
                 counter += 1
                 ret, frame = cap.read()
-                if not ret: 
+                if not ret:
                     writer.release()
                     return
                 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -131,11 +163,13 @@ class Editor:
             clips_l {[list]} -- [list of paths to the videos to be tiled]
             savepath {[type]} -- [complete filepath of the video to be saved]
         """
-        caps = [ cv2.VideoCapture(videofilepath) for videofilepath in clips_l]
+        caps = [cv2.VideoCapture(videofilepath) for videofilepath in clips_l]
 
         nframes, width, height, fps = self.get_video_params(caps[0])
         width *= len(caps)
-        writer = self.open_cvwriter(savepath, w=width, h=height, framerate=fps, iscolor=True)
+        writer = self.open_cvwriter(
+            savepath, w=width, h=height, framerate=fps, iscolor=True
+        )
 
         while True:
             try:
@@ -147,55 +181,68 @@ class Editor:
                 writer.write(tot_frame)
         writer.release()
 
-
-
-    def compress_clip(self, videopath, compress_factor, save_path=None, start_frame=0, stop_frame=None):
-        '''
+    def compress_clip(
+        self, videopath, compress_factor, save_path=None, start_frame=0, stop_frame=None
+    ):
+        """
             takes the path to a video, opens it as opecv Cap and resizes to compress factor [0-1] and saves it
-        '''
+        """
         cap = cv2.VideoCapture(videopath)
         nframes, width, height, fps = self.get_video_params(cap)
 
-        resized_width = int(np.ceil(width*compress_factor))
-        resized_height = int(np.ceil(height*compress_factor))
+        resized_width = int(np.ceil(width * compress_factor))
+        resized_height = int(np.ceil(height * compress_factor))
 
         if save_path is None:
-            save_name = os.path.split(videopath)[-1].split('.')[0] + '_compressed' + '.mp4'
+            save_name = (
+                os.path.split(videopath)[-1].split(".")[0] + "_compressed" + ".mp4"
+            )
             save_path = os.path.split(videopath)
             save_path = os.path.join(list(save_path))
 
-        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-        videowriter = self.open_cvwriter(save_path, w=resized_width, h=resized_height, framerate=fps, format='.mp4', iscolor=False)
+        fourcc = cv2.VideoWriter_fourcc(*"mp4v")
+        videowriter = self.open_cvwriter(
+            save_path,
+            w=resized_width,
+            h=resized_height,
+            framerate=fps,
+            format=".mp4",
+            iscolor=False,
+        )
         framen = 0
         cap.set(cv2.CAP_PROP_POS_FRAMES, start_frame)
-        while True:       
+        while True:
             ret, frame = cap.read()
-            if not ret: break
+            if not ret:
+                break
 
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            resized = cv2.resize(gray, (resized_width, resized_height)) 
+            resized = cv2.resize(gray, (resized_width, resized_height))
             videowriter.write(resized)
             framen += 1
 
             if stop_frame is not None:
-                if framen >= stop_frame: break
+                if framen >= stop_frame:
+                    break
 
         videowriter.release()
-    
+
     def crop_video(self, videopath, x, y):
         cap = cv2.VideoCapture(videopath)
         nframes, width, height, fps = self.get_video_params(cap)
 
         path, name = os.path.split(videopath)
         name, ext = name.split(".")
-        savename = os.path.join(path, name +"_cropped.mp4")
+        savename = os.path.join(path, name + "_cropped.mp4")
 
-        writer = self.open_cvwriter(savename, w=x, h=y, framerate=fps, format='.mp4', iscolor=True)
-
+        writer = self.open_cvwriter(
+            savename, w=x, h=y, framerate=fps, format=".mp4", iscolor=True
+        )
 
         while True:
             ret, frame = cap.read()
-            if not ret: break
+            if not ret:
+                break
 
             cropped = frame[:y, :x, :]
 
@@ -213,15 +260,18 @@ class Editor:
 
         path, name = os.path.split(video)
         name, ext = name.split(".")
-        savename = os.path.join(path, name +"_concatenated.mp4")
+        savename = os.path.join(path, name + "_concatenated.mp4")
 
-        writer = self.open_cvwriter(savename, w=width, h=height, framerate=fps, format='.mp4', iscolor=True)
+        writer = self.open_cvwriter(
+            savename, w=width, h=height, framerate=fps, format=".mp4", iscolor=True
+        )
 
         for video in videos:
             cap = cv2.VideoCapture(video)
             while True:
                 ret, frame = cap.read()
-                if not ret: break
+                if not ret:
+                    break
 
                 writer.write(frame)
         writer.release()
@@ -230,16 +280,19 @@ class Editor:
         cap = cv2.VideoCapture(videopath)
         nframes, width, height, fps = self.get_video_params(cap)
 
-        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-        videowriter = self.open_cvwriter(save_path, w=width, h=height, framerate=fps, format='.mp4', iscolor=False)
+        fourcc = cv2.VideoWriter_fourcc(*"mp4v")
+        videowriter = self.open_cvwriter(
+            save_path, w=width, h=height, framerate=fps, format=".mp4", iscolor=False
+        )
 
-        while True:       
+        while True:
             ret, frame = cap.read()
-            if not ret: break
+            if not ret:
+                break
 
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
             gray = np.add(gray, add_value)
-            gray[gray>255] + 255
+            gray[gray > 255] + 255
             videowriter.write(gray)
         videowriter.release()
