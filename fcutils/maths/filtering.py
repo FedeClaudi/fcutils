@@ -10,12 +10,12 @@ from scipy.ndimage import filters
 from scipy.signal import medfilt as median_filter
 from scipy.interpolate import interp1d
 
-from neuroanalysis.filter import (
-    bessel_filter,
-    butterworth_filter,
-    savgol_filter,
-    downsample,
-)
+# from neuroanalysis.filter import (
+#     bessel_filter,
+#     butterworth_filter,
+#     savgol_filter,
+#     downsample,
+# )
 
 
 def upsample_signal(start_fps, goal_fps, signal):

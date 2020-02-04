@@ -8,4 +8,6 @@ vtk
 tqdm
 pyyaml
 statsmodels
+scipy
+requests
 git+https://github.com/FedeClaudi/fcutils.git
