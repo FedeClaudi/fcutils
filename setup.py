@@ -1,8 +1,26 @@
 from setuptools import setup, find_namespace_packages
 
+requirements = [
+    "numpy",
+    "opencv-python",
+    "nptdms",
+    "configparser",
+    "pandas",
+    "tqdm",
+    "matplotlib",
+    "seaborn",
+    "scipy",
+    "vtk",
+    "pyyaml",
+    "statsmodels",
+    "requests",
+    "pyexcel",
+    "pyexcel-xlsx"
+]
+
 setup(
     name="fcutils",
-    version="0.1.3.8",
+    version="0.1.3.9",
     author_email="federicoclaudi@protonmail.com",
     description="bunch of utility functions",
     packages=find_namespace_packages(exclude=()),
@@ -10,4 +28,5 @@ setup(
     url="https://github.com/FedeClaudi/fcutils",
     author="Federico Claudi",
     zip_safe=False,
+    install_requires=requirements,
 )
