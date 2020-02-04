@@ -71,3 +71,7 @@ def check_file_exists(filepath, raise_error=False):
         raise FileExistsError("File {} doesn't exist".format(filepath))
     else:
         return False
+
+def get_file_name(filepath):
+    # Returns just the name, no complete path or extension
+    return os.path.splitext(os.path.basename(filepath))[0]
