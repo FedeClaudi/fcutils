@@ -10,4 +10,5 @@ pyyaml
 statsmodels
 scipy
 requests
+pyexcel
 git+https://github.com/FedeClaudi/fcutils.git
