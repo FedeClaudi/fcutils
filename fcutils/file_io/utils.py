@@ -68,6 +68,6 @@ def check_file_exists(filepath, raise_error=False):
     if os.path.isfile(filepath):
         return True
     elif raise_error:
-        raise FileExistsError("File {} doesn't exist")
+        raise FileExistsError("File {} doesn't exist".format(filepath))
     else:
         return False
