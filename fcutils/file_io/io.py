@@ -16,7 +16,7 @@ from fcutils.file_io.utils import check_file_exists
 # --------------------------------- CSV FILES -------------------------------- #
 def load_excel_file(filepath):
     check_file_exists(filepath, raise_error=True)
-    return pyexcel.get_records(file_name=self.mice_records)
+    return pyexcel.get_records(file_name=filepath)
 
 
 def create_csv_file(filepath, fieldnames):
