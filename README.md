@@ -16,5 +16,5 @@ pip install git+https://github.com/FedeClaudi/fcutils.git
 
 Update with:
 ```
-pip install git+https://github.com/FedeClaudi/fcutils.git --update
+pip install git+https://github.com/FedeClaudi/fcutils.git --upgrade
 ```

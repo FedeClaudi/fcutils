@@ -15,12 +15,13 @@ requirements = [
     "statsmodels",
     "requests",
     "pyexcel",
-    "pyexcel-xlsx"
+    "pyexcel-xlsx",
+    "pyjson",
 ]
 
 setup(
     name="fcutils",
-    version="0.1.3.9",
+    version="0.1.4.0",
     author_email="federicoclaudi@protonmail.com",
     description="bunch of utility functions",
     packages=find_namespace_packages(exclude=()),
