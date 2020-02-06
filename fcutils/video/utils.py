@@ -5,9 +5,9 @@ import numpy as np
 
 def get_cap_from_file(videopath):
     try:
-        cap = cv2.VideoCapture(videofilepath)
-    except:
-        raise ValueError("Could not open video at: " + videopath)
+        cap = cv2.VideoCapture(videopath)
+    except Exception as e:
+        raise ValueError("Could not open video at: " + videopath + f"\n {e}")
 
     ret, frame = cap.read()
     if not ret:
