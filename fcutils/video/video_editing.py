@@ -20,10 +20,9 @@ import shutil
 import matplotlib.pyplot as plt
 import time
 
-from .file_io.files_io import *
+from fcutils.file_io.io import *
 
 
-paths_file = "paths.yml"
 
 
 class Editor:
