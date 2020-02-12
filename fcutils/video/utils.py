@@ -255,14 +255,15 @@ def trim_clip(
     cap.set(1, start_frame)
     while True:
         cur_frame += 1
-        if cur_frame % 5000 == 0:
-            print("Current frame: ", cur_frame)
+
         if cur_frame <= start_frame:
             continue
         elif cur_frame >= stop_frame:
             break
         else:
-
+            if cur_frame % 5000 == 0:
+                print("Current frame: ", cur_frame)
+                
             ret, frame = cap.read()
             if not ret:
                 break
