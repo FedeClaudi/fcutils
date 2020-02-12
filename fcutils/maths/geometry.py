@@ -148,13 +148,8 @@ def calc_angle_between_points_of_vector_2d(x, y):
     delta_y = derivative(y)
     theta = np.arctan2(delta_x, delta_y)
 
-    theta[(delta_x == 0)&(delta_y == 0)] = 0
-    theta[(delta_x == 0)&(delta_y > 0)] = np.radians(90)
-    theta[(delta_x == 0)&(delta_y - 0)] = np.radians(-90)
-    theta[(delta_x > 0)&(delta_y == 0)] = np.radians(0)
-    theta[(delta_x < 0)&(delta_y == 0)] = np.radians(180)
-
     theta = np.degrees(theta)
+    
     theta[theta < 0] += 360
     if np.max(theta) > 360 or np.min(theta) < 0:
         raise ValueError("Something went wrong while computing angles")
