@@ -139,6 +139,15 @@ def calc_distance_from_point(v, point):
 
 
 
+def calc_angles_with_arctan(x, y):
+    theta = np.degrees(np.arctan2(x, y))
+
+    theta[theta < 0] += 360
+    if np.max(theta) > 360 or np.min(theta) < 0:
+        raise ValueError("Something went wrong while computing angles")
+    
+    return theta
+
 def calc_angle_between_points_of_vector_2d(x, y):
     """
         Given 2 1d arrays specifying for instance the X and Y coordinates at each frame,
@@ -146,15 +155,7 @@ def calc_angle_between_points_of_vector_2d(x, y):
 	"""
     delta_x = derivative(x)
     delta_y = derivative(y)
-    theta = np.arctan2(delta_x, delta_y)
-
-    theta = np.degrees(theta)
-    
-    theta[theta < 0] += 360
-    if np.max(theta) > 360 or np.min(theta) < 0:
-        raise ValueError("Something went wrong while computing angles")
-    
-    return theta
+    return calc_angles_with_arctan(delta_x, delta_y)
 
 
 def calc_angle_between_vectors_of_points_2d(x1, y1, x2, y2):
@@ -166,12 +167,7 @@ def calc_angle_between_vectors_of_points_2d(x1, y1, x2, y2):
     delta_x = x2-x1
     delta_y = y2-y1
 
-    theta = np.arctan2(delta_x, delta_y)
-    theta[theta < 0] += 360
-    if np.max(theta) > 360 or np.min(theta) < 0:
-        raise ValueError("Something went wrong while computing angles")
-    
-    return np.degrees(theta)
+    return calc_angles_with_arctan(delta_x, delta_y)
 
 
 
