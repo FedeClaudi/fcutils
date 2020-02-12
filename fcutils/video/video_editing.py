@@ -26,8 +26,8 @@ from fcutils.file_io.io import *
 
 
 class Editor:
-    def __init__(self):
-        raise NotImplementedError("This code is old and full of stuff that I broke")
+    # def __init__(self):
+    #     raise NotImplementedError("This code is old and full of stuff that I broke")
 
     def trim_clip(
         self,
@@ -54,7 +54,7 @@ class Editor:
             end {float} -- [video proportion to stop at ] (default: {0.0})
             start_frame {[type]} -- [video frame to stat at ] (default: {None})
             end_frame {[type]} -- [videoframe to stop at ] (default: {None})
-            selfpd {[int]}(default, None) -- [specify the fps of the output]
+            sel_fps {[int]}(default, None) -- [specify the fps of the output]
             lighten --> make the video a bit brighter
         """
 
