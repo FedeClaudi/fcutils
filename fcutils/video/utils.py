@@ -250,12 +250,12 @@ def trim_clip(
         stop_frame = int(round(nframes * stop))
 
     # Loop over frames and save the ones that matter
-    print("Processing: ", videopath)
+    print("Processing: ", videopath, f'{stop_frame-start_frame} frames ')
     cur_frame = 0
     cap.set(1, start_frame)
     while True:
         cur_frame += 1
-        if cur_frame % 100 == 0:
+        if cur_frame % 5000 == 0:
             print("Current frame: ", cur_frame)
         if cur_frame <= start_frame:
             continue
