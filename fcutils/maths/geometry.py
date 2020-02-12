@@ -143,7 +143,7 @@ def calc_angles_with_arctan(x, y):
     theta = np.degrees(np.arctan2(x, y))
 
     theta[theta < 0] += 360
-    if np.max(theta) > 360 or np.min(theta) < 0:
+    if np.nanmax(theta) > 360 or np.nanmin(theta) < 0:
         raise ValueError("Something went wrong while computing angles")
     
     return theta
