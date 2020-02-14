@@ -16,6 +16,14 @@ from collections import namedtuple
 from scipy import stats
 
 
+
+def derivative(x):
+    """"
+        Takes the derivative of an array x
+    """
+    return np.concatenate([[0], np.diff(x)])
+
+
 def binArray(data, axis, binstep, binsize, func=np.nanmean):
     """
 		Bins a numpy array along a specific axis

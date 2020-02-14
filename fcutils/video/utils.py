@@ -197,3 +197,80 @@ def manual_video_inspect(videofilepath):
             print("Showing frame {} of {}".format(show_frame, number_of_frames))
         except:
             raise ValueError("Could not display frame ", show_frame)
+
+
+
+
+def trim_clip(
+    videopath,
+    savepath,
+    frame_mode=False,
+    start=0.0,
+    stop=0.0,
+    start_frame=None,
+    stop_frame=None,
+    sel_fps=None,
+    lighten=False,
+):
+    """trim_clip [take a videopath, open it and save a trimmed version between start and stop. Either 
+    looking at a proportion of video (e.g. second half) or at start and stop frames]
+    
+    Arguments:
+        videopath {[str]} -- [video to process]
+        savepath {[str]} -- [where to save]
+    
+    Keyword Arguments:
+        frame_mode {bool} -- [define start and stop time as frame numbers] (default: {False})
+        start {float} -- [video proportion to start at ] (default: {0.0})
+        end {float} -- [video proportion to stop at ] (default: {0.0})
+        start_frame {[type]} -- [video frame to stat at ] (default: {None})
+        end_frame {[type]} -- [videoframe to stop at ] (default: {None})
+        sel_fps {[int]}(default, None) -- [specify the fps of the output]
+        lighten --> make the video a bit brighter
+    """
+
+    # Open reader and writer
+    cap = cv2.VideoCapture(videopath)
+    nframes, width, height, fps = get_video_params(cap)
+
+    if sel_fps is not None:
+        fps = sel_fps
+    writer = open_cvwriter(
+        savepath,
+        w=width,
+        h=height,
+        framerate=int(fps),
+        format=".mp4",
+        iscolor=False,
+    )
+
+    # if in proportion mode get start and stop mode
+    if not frame_mode:
+        start_frame = int(round(nframes * start))
+        stop_frame = int(round(nframes * stop))
+
+    # Loop over frames and save the ones that matter
+    print("Processing: ", videopath, f'{stop_frame-start_frame} frames ')
+    cur_frame = 0
+    cap.set(1, start_frame)
+    while True:
+        cur_frame += 1
+
+        if cur_frame <= start_frame:
+            continue
+        elif cur_frame >= stop_frame:
+            break
+        else:
+            if cur_frame % 5000 == 0:
+                print("Current frame: ", cur_frame)
+                
+            ret, frame = cap.read()
+            if not ret:
+                break
+            else:
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
+                if lighten:
+                    a = 1
+                writer.write(frame)
+    writer.release()
