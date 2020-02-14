@@ -131,11 +131,18 @@ def calc_distance_from_point(v, point):
 		point {[tuple]} -- [tuple of length 2 with X and Y coordinates of point]
 	"""
     assert isinstance(v, np.ndarray), "Input data needs to be a numpy array"
-    assert v.shape[1] == 2, "Input array must be a 2d array with two columns"
+    
+    if v.shape[0] == 2:
+        pass # good
+    elif v.shape[1] == 2:
+        v = v.T
+    else:
+        raise ValueError("Vector of weird shape: {}".format(v.shape))
 
-    point_vector = np.array(point)
-    point_vector = np.tile(point_vector, (v.shape[0], 1))
-    return calc_distance_between_points_two_vectors_2d(v, point_vector)
+    delta_x = xy[0, :] - point[0]
+    delta_y = xy[1, :] - point[1]
+
+    return np.sqrt(delta_x**2 + delta_y**2)
 
 
 
