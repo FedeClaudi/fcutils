@@ -198,7 +198,7 @@ def calc_ang_velocity(angles):
         raise ValueError("Invalid input data format")
 
     # Calculate
-    angles_radis = np.radians(angles)  # <- to unwrap
+    angles_radis = np.unwrap(np.radians(angles))  # <- to unwrap
     ang_vel_rads = derivative(angles_radis)
     return np.degrees(ang_vel_rads)
 
