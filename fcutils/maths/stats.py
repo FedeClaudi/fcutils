@@ -1,5 +1,7 @@
 import numpy as np
-
+from scipy import stats
+import math
+from collections import namedtuple
 
 # ---------------------------------------------------------------------------- #
 #                               ANGLES STATISTICS                              #
