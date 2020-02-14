@@ -40,10 +40,10 @@ def percentile_range(data, low=5, high=95):
     """[Calculates the range between the low and high percentiles]
 	"""
 
-    lowp = np.percentile(data, low)
-    highp = np.percentile(data, high)
-    median = np.median(data)
-    mean = np.mean(data)
+    lowp = np.nanpercentile(data, low)
+    highp = np.nanpercentile(data, high)
+    median = np.nanmedian(data)
+    mean = np.nanmean(data)
     std = np.std(data)
     sem = stats.sem(data)
 
