@@ -139,8 +139,8 @@ def calc_distance_from_point(v, point):
     else:
         raise ValueError("Vector of weird shape: {}".format(v.shape))
 
-    delta_x = xy[0, :] - point[0]
-    delta_y = xy[1, :] - point[1]
+    delta_x = v[0, :] - point[0]
+    delta_y = v[1, :] - point[1]
 
     return np.sqrt(delta_x**2 + delta_y**2)
 
