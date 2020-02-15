@@ -9,6 +9,15 @@ from ..maths.utils import find_nearest
 from .matplotlib_config import *
 
 
+def ball_and_errorbar(x, y, yerr=None, xerr=None, ax, color='k', s=100):
+    """
+        Plots a line and a ball on top of it, used to plot
+        stuff like mean and CI.
+    """
+    ax.errorbar(x, y, yerr=yerr, xerr=xerr, color = color )
+    axa.scatter(x, y, color=color, s=s, zorder=99)
+
+
 # ! plotting functions
 def ortholines(
     ax, orientations, values, color=[0.7, 0.7, 0.7], lw=3, alpha=0.5, ls="--", **kwargs
