@@ -9,7 +9,7 @@ from ..maths.utils import find_nearest
 from .matplotlib_config import *
 
 
-def ball_and_errorbar(x, y, yerr=None, xerr=None, ax, color='k', s=100):
+def ball_and_errorbar(x, y,  ax, yerr=None, xerr=None,color='k', s=100):
     """
         Plots a line and a ball on top of it, used to plot
         stuff like mean and CI.
