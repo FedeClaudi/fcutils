@@ -15,7 +15,7 @@ def ball_and_errorbar(x, y,  ax, yerr=None, xerr=None,color='k', s=100):
         stuff like mean and CI.
     """
     ax.errorbar(x, y, yerr=yerr, xerr=xerr, color = color )
-    axa.scatter(x, y, color=color, s=s, zorder=99)
+    ax.scatter(x, y, color=color, s=s, zorder=99)
 
 
 # ! plotting functions
