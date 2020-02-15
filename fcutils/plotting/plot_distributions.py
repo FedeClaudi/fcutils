@@ -6,9 +6,9 @@ from scipy import stats
 import numpy as np
 from scipy.optimize import curve_fit
 
-from .plotting.plotting_utils import *
-from .plotting.matplotlib_config import *
-from .maths.distributions import fit_kde
+from .utils import *
+from .matplotlib_config import *
+from ..maths.distributions import fit_kde
 
 
 def plot_distribution(
