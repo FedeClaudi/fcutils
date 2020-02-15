@@ -8,6 +8,7 @@ from scipy.optimize import curve_fit
 
 from .utils import *
 from .matplotlib_config import *
+from .plot_elements import plot_shaded_withline
 from ..maths.distributions import fit_kde
 
 
