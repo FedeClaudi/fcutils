@@ -95,11 +95,6 @@ def save_figure(f, path, svg=False, verbose=True):
     if verbose:
         print(" saved figure at: " + path)
 
-
-def close_figure(f):
-    plt.close(f)
-
-
 def make_legend(ax):
     l = ax.legend()
     for text in l.get_texts():
