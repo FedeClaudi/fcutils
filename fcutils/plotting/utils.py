@@ -83,7 +83,7 @@ def ticksrange(start, stop, step):
     return np.arange(start, stop + step, step)
 
 
-def save_figure(f, path, svg=False):
+def save_figure(f, path, svg=False, verbose=True):
     """
 		Paths should be the complete path to where the figure should be saved but without suffix
 	"""
@@ -91,7 +91,9 @@ def save_figure(f, path, svg=False):
         f.savefig("{}.svg".format(path))
 
     f.savefig("{}.png".format(path))
-    print(" saved figure at: " + path)
+
+    if verbose:
+        print(" saved figure at: " + path)
 
 
 def close_figure(f):
