@@ -9,7 +9,7 @@ from scipy.signal import butter, lfilter, freqz, resample, wiener, gaussian
 from scipy.ndimage import filters
 from scipy.signal import medfilt as median_filter
 from scipy.interpolate import interp1d
-
+from math import factorial
 # from neuroanalysis.filter import (
 #     bessel_filter,
 #     butterworth_filter,
