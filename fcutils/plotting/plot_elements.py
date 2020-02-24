@@ -6,15 +6,22 @@ from matplotlib import gridspec
 from collections import namedtuple
 
 from ..maths.utils import find_nearest
+from ..maths.stats import percentile_range
+
 from .matplotlib_config import *
 
 
-def ball_and_errorbar(x, y,  ax, yerr=None, xerr=None,color='k', s=100):
+def ball_and_errorbar(x, y, data, ax, orientation='horizontal', color='k', s=100,  **kwargs):
     """
         Plots a line and a ball on top of it, used to plot
         stuff like mean and CI.
     """
-    ax.errorbar(x, y, yerr=yerr, xerr=xerr, color = color )
+    perc = percentile_range(data)
+    if orientation == 'horizontal':
+        ax.plot([perc.low, perc.high], y, color=color, **kwargs)
+    else:
+        ax.plot(x, [perc.low, perc.high], color=color, **kwargs)
+
     ax.scatter(x, y, color=color, s=s, zorder=99)
 
 
