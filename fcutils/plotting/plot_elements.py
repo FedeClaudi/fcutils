@@ -18,9 +18,9 @@ def ball_and_errorbar(x, y, data, ax, orientation='horizontal', color='k', s=100
     """
     perc = percentile_range(data)
     if orientation == 'horizontal':
-        ax.plot([perc.low, perc.high], y, color=color, **kwargs)
+        ax.plot([perc.low, perc.high], [y, y], color=color, **kwargs)
     else:
-        ax.plot(x, [perc.low, perc.high], color=color, **kwargs)
+        ax.plot([x, x], [perc.low, perc.high], color=color, **kwargs)
 
     ax.scatter(x, y, color=color, s=s, zorder=99)
 
