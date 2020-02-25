@@ -23,7 +23,13 @@ def set_figure_subplots_aspect(
 
 
 def clean_axes(f):
-    sns.despine(fig=f, offset=10, trim=False, left=False, right=True)
+    ax_list = f.axes
+
+    for ax in list(ax_list):
+        try:
+            sns.despine(ax=ax, offset=10, trim=False, left=False, right=True)
+        except:
+            pass
 
 
 def save_all_open_figs(
