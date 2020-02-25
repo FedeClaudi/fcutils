@@ -195,9 +195,10 @@ def rose_plot(
             alpha=alpha, 
         )
     else:
+        radius = np.concatenate([radius, [radius[0]]])
         if fill:
-            ax.fill_between(bins[:-1], 0, radius, color=color, lw=linewidth, alpha=alpha)
-        ax.plot(bins[:-1], radius, color=color, lw=linewidth, alpha=.8)
+            ax.fill_between(bins, 0, radius, color=color, lw=linewidth, alpha=alpha)
+        ax.plot(bins, radius, color=color, lw=linewidth, alpha=.8)
 
     # Remove ylabels, they are mostly obstructive and not informative
     ax.set_yticks([])
