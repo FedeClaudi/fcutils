@@ -6,15 +6,22 @@ from matplotlib import gridspec
 from collections import namedtuple
 
 from ..maths.utils import find_nearest
+from ..maths.stats import percentile_range
+
 from .matplotlib_config import *
 
 
-def ball_and_errorbar(x, y,  ax, yerr=None, xerr=None,color='k', s=100):
+def ball_and_errorbar(x, y, data, ax, orientation='horizontal', color='k', s=100,  **kwargs):
     """
         Plots a line and a ball on top of it, used to plot
         stuff like mean and CI.
     """
-    ax.errorbar(x, y, yerr=yerr, xerr=xerr, color = color )
+    perc = percentile_range(data)
+    if orientation == 'horizontal':
+        ax.plot([perc.low, perc.high], [y, y], color=color, **kwargs)
+    else:
+        ax.plot([x, x], [perc.low, perc.high], color=color, **kwargs)
+
     ax.scatter(x, y, color=color, s=s, zorder=99)
 
 
@@ -121,9 +128,11 @@ def rose_plot(
     theta_min=0,
     theta_max=360,
     density=None,
-    offset=0,
+    offset=None,
     lab_unit="degrees",
     start_zero=False,
+    as_hist=False,
+    theta_0='N',
     **kwargs
 ):
     """
@@ -131,14 +140,21 @@ def rose_plot(
 	Plot polar histogram of angles on ax. ax must have been created using
 	subplot_kw=dict(projection='polar'). Angles are expected in radians.
 	"""
+    if offset is None:
+        ax.set_theta_offset(np.pi/2)
+    else:
+        ax.set_theta_offset(offset)
+
     # parse kwargs
     edge_color = kwargs.pop("edge_color", "g")
+    color = kwargs.pop("color", 'g')
     fill = kwargs.pop("fill", False)
     linewidth = kwargs.pop("linewidth", 2)
+    alpha = kwargs.pop("alpha", 1)
     xticks = kwargs.pop("xticks", True)
 
     # Wrap angles to [-pi, pi)
-    angles = (angles + np.pi) % (2 * np.pi) - np.pi
+    # angles = (angles + np.pi) % (2 * np.pi) - np.pi
 
     # Set bins symetrically around zero
     if start_zero:
@@ -165,19 +181,24 @@ def rose_plot(
         radius = count
 
     # Plot data on ax
-    ax.bar(
-        bins[:-1],
-        radius,
-        zorder=1,
-        align="edge",
-        width=widths,
-        edgecolor=edge_color,
-        fill=fill,
-        linewidth=linewidth,
-    )
-
-    # Set the direction of the zero angle
-    ax.set_theta_offset(offset)
+    if as_hist:
+        ax.bar(
+            bins[:-1],
+            radius,
+            zorder=1,
+            align="edge",
+            width=widths,
+            color=color,
+            edgecolor=edge_color,
+            fill=fill,
+            linewidth=linewidth,
+            alpha=alpha, 
+        )
+    else:
+        radius = np.concatenate([radius, [radius[0]]])
+        if fill:
+            ax.fill_between(bins, 0, radius, color=color, lw=linewidth, alpha=alpha)
+        ax.plot(bins, radius, color=color, lw=linewidth, alpha=.8)
 
     # Remove ylabels, they are mostly obstructive and not informative
     ax.set_yticks([])
