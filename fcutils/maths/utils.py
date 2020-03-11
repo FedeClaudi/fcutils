@@ -135,20 +135,3 @@ def correct_speed(speed):
     return median_filter(speed, 31)
 
 
-def remove_tracking_errors(tracking, debug=False):
-    """
-		Get timepoints in which the velocity of a bp tracking is too high and remove them
-	"""
-    filtered = np.zeros(tracking.shape)
-    for i in np.arange(tracking.shape[1]):
-        temp = tracking[:, i].copy()
-        filtered[:, i] = signal.medfilt(temp, kernel_size=5)
-
-        if debug:
-            plt.figure()
-            plt.plot(tracking[:, i], color="k", linewidth=2)
-            plt.plot(temp, color="g", linewidth=1)
-            plt.plot(filtered[:, i], "o", color="r")
-            plt.show()
-
-    return filtered

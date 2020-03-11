@@ -171,8 +171,8 @@ def calc_angle_between_vectors_of_points_2d(x1, y1, x2, y2):
         between each pair of point in each set of coordinates.
     """
     # Calculate
-    delta_x = x2-x1
-    delta_y = y2-y1
+    delta_x = np.array(x2-x1)
+    delta_y = np.array(y2-y1)
 
     return calc_angles_with_arctan(delta_x, delta_y)
 
