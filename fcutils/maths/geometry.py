@@ -30,6 +30,8 @@ def subtract_angles(lhs, rhs):
 def slope(x1, y1, x2, y2):
     return (y2 - y1) / (x2 - x1)
 
+def intercept(x1, y1, x2, y2):
+    return(x1*y2 - x2*y1)/(x1-x2)
 
 def calc_distance_between_point_and_line(line_points, p3):
     """[Calcs the perpendicular distance between a point and a line]
@@ -145,7 +147,6 @@ def calc_distance_from_point(v, point):
     return np.sqrt(delta_x**2 + delta_y**2)
 
 
-
 def calc_angles_with_arctan(x, y):
     theta = np.degrees(np.arctan2(x, y))
 
@@ -154,6 +155,7 @@ def calc_angles_with_arctan(x, y):
         raise ValueError("Something went wrong while computing angles")
     
     return theta
+
 
 def calc_angle_between_points_of_vector_2d(x, y):
     """
@@ -175,7 +177,6 @@ def calc_angle_between_vectors_of_points_2d(x1, y1, x2, y2):
     delta_y = np.array(y2-y1)
 
     return calc_angles_with_arctan(delta_x, delta_y)
-
 
 
 def calc_ang_velocity(angles):
