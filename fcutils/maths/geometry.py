@@ -33,6 +33,16 @@ def slope(x1, y1, x2, y2):
 def intercept(x1, y1, x2, y2):
     return(x1*y2 - x2*y1)/(x1-x2)
 
+def get_random_point_on_line_between_two_points(x1, y1, x2, y2):
+    slop = slope(x1, y1, x2, y2)
+    interc = intercept(x1, y1, x2, y2)
+
+    # take a random X between the two values and compute y accordingly
+    x = np.random.uniform(x1, x2)
+    y = slop*x + interc
+    return (x, y)
+
+
 def calc_distance_between_point_and_line(line_points, p3):
     """[Calcs the perpendicular distance between a point and a line]
 	
