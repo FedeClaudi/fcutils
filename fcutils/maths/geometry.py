@@ -37,6 +37,9 @@ def get_random_point_on_line_between_two_points(x1, y1, x2, y2):
     slop = slope(x1, y1, x2, y2)
     interc = intercept(x1, y1, x2, y2)
 
+    if np.isnan(interc):
+        interc = 0
+
     # take a random X between the two values and compute y accordingly
     x = np.random.uniform(x1, x2)
     y = slop*x + interc
