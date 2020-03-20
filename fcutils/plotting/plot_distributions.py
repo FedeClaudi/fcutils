@@ -208,8 +208,8 @@ def plot_kde(
     
     Arguments:
         ax {[plt.axis]} -- [ax onto which to plot]
-        kde {[type]} -- [KDE fitted with statsmodels, optional. Either KDE or data must be passed]
-        data {[type]} -- [2d numpy array with data, optional. Either KDE or data must be passed]
+        kde {[np.ndarray]} -- [KDE fitted with statsmodels, optional. Either KDE or data must be passed]
+        data {[np.ndarray]} -- [1d numpy array with data (Y values of distribution), optional. Either KDE or data must be passed]
 
         z {[type]} -- [value used to shift the curve, for a horizontal KDE z=0 means the curve is on the x axis. ]
     
