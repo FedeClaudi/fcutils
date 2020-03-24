@@ -30,7 +30,10 @@ def open_hdf(filepath):
         except:
             pass
 
-    return f, keys, subkeys
+    all_keys = []
+    f.visit(all_keys.append)
+
+    return f, keys, subkeys, all_keys
 
 
 
