@@ -9,10 +9,30 @@ from functools import partial
 import pandas as pd
 import pyexcel
 import json
+import h5py
 
 sys.path.append("./")
 
 from fcutils.file_io.utils import check_file_exists
+
+# ------------------------------------ HDF ----------------------------------- #
+def open_hdf(filepath):
+    check_file_exists(filepath, raise_error=True)
+    f =  h5py.File(filepath, 'r')
+
+    # List all groups and subgroups
+    keys = list(f.keys())
+    subkeys = {} 
+    for k in keys:
+        try:
+            subk = list(f[k].keys())
+            subkeys[k] = subk
+        except:
+            pass
+
+    return f, keys, subkeys
+
+
 
 # --------------------------------- CSV FILES -------------------------------- #
 def load_excel_file(filepath):
