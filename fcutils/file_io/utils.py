@@ -42,6 +42,10 @@ def get_subdirs(folderpath):
 	"""
     return [f.path for f in os.scandir(folderpath) if f.is_dir()]
 
+def get_last_dir_in_path(folderpath):
+    if not os.path.isdir(folderpath):
+        raise FileNotFoundError("Invalid path: {}".format(folderpath))
+    return os.path.basename(os.path.normpath(folderpath))
 
 def check_create_folder(folderpath, raise_error=False):
     # Check if a folder exists, otherwise creates it
