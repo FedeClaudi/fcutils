@@ -25,8 +25,8 @@ def sort_list_of_strings(lst):
         '''
         return [ atof(c) for c in re.split(r'[+-]?([0-9]+(?:[.][0-9]*)?|[.][0-9]+)', text) ]
 
-
-    return lst.sort(key=natural_keys)
+    lst.sort(key=natural_keys)
+    return lst
 
 
 def flatten_list(lst):
