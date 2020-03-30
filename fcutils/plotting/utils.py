@@ -9,6 +9,17 @@ from collections import namedtuple
 import matplotlib.pyplot as plt
 
  
+def forceAspect(ax,aspect):
+    """
+        Forces the aspect ratio of an axis onto which an image what plotted with imshow.
+        From:
+        https://www.science-emergence.com/Articles/How-to-change-imshow-aspect-ratio-in-matplotlib-/
+    """
+    im = ax.get_images()
+    extent =  im[0].get_extent()
+    ax.set_aspect(abs((extent[1]-extent[0])/(extent[3]-extent[2]))/aspect)
+
+
 def fig2data (fig):
     """
     @brief Convert a Matplotlib figure to a 4D numpy array with RGBA channels and return it
@@ -107,7 +118,7 @@ def ticksrange(start, stop, step):
     return np.arange(start, stop + step, step)
 
 
-def save_figure(f, path, svg=False, verbose=True):
+def save_figure(f, path, svg=False, verbose=True, close=False):
     """
 		Paths should be the complete path to where the figure should be saved but without suffix
 	"""
@@ -118,6 +129,9 @@ def save_figure(f, path, svg=False, verbose=True):
 
     if verbose:
         print(" saved figure at: " + path)
+    
+    if close:
+        plt.close(f)
 
 def make_legend(ax):
     l = ax.legend()
