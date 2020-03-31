@@ -163,7 +163,7 @@ def calc_distance_from_point(v, point):
 def calc_angles_with_arctan(x, y):
     theta = np.degrees(np.arctan2(x, y))
 
-    if not isinstance(theta, np.darray):
+    if not isinstance(theta, np.ndarray):
         if theta < 0: theta += 360
         if theta < 0 or theta > 360: raise ValueError
         return theta
