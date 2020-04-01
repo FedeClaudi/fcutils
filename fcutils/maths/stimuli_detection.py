@@ -9,6 +9,8 @@ import pandas as pd
 from .filtering import *
 
 
+raise NotImplementedError("This code is old and should not be used, better functions are available in behaviour")
+
 """
     Collection of functions that analyse AI time series data to find the start and end of stimuli delivered through Mantis
 """
