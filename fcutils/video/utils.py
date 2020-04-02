@@ -33,11 +33,17 @@ def get_video_params(cap):
     if isinstance(cap, str):
         cap = cv2.VideoCapture(cap)
 
+    frame = get_cap_selected_frame(cap, 0)
+    if frame.shape[1] == 3:
+        is_color = True
+    else: is_color = False
+    cap_set_frame(cap, 0)
+
     nframes = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     fps = cap.get(cv2.CAP_PROP_FPS)
-    return nframes, width, height, fps
+    return nframes, width, height, fps, is_color
 
 
 def opencv_write_clip(
