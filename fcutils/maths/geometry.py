@@ -210,11 +210,11 @@ def calc_ang_velocity(angles):
 	>>> v = calc_ang_velocity([0, 10, 100, 50, 10, 0])    
 	"""
     # Check input data
-    if angles is None:
-        raise ValueError("Invalid input data format")
-
     if not isinstance(angles, np.ndarray) and not isinstance(angles, list):
         raise ValueError("Invalid input data format")
+
+    if isinstance(angles, np.ndarray):
+        if len(angles.shape)>1: angles = angles.ravel()
 
     # Calculate
     angles_radis = np.unwrap(np.radians(np.nan_to_num(angles)))  # <- to unwrap

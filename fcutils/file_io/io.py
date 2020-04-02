@@ -10,6 +10,7 @@ import pandas as pd
 import pyexcel
 import json
 import h5py
+import pickle
 
 sys.path.append("./")
 
@@ -130,3 +131,27 @@ def load_yaml(filepath):
     if not "yml" in filepath and not "yaml" in filepath:
         raise ValueError("unrecognized file path: {}".format(filepath))
     return yaml.load(open(filepath), Loader=yaml.FullLoader)
+
+
+
+# ---------------------------------- PICKLE ---------------------------------- #
+def save_pickle(filepath, data):
+    with open(filepath, 'wb') as handle:
+        pickle.dump(data, handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+def load_pickle(filepath):
+    """
+	Load a pickle file
+
+	:param filepath: path to pickle file
+
+	"""
+    if filepath is None or not os.path.isfile(filepath):
+        raise ValueError("unrecognized file path: {}".format(filepath))
+    if not "pkl" in filepath and not "pickle" in filepath:
+        raise ValueError("unrecognized file path: {}".format(filepath))
+
+    with open(filepath, 'rb') as handle:
+        data = pickle.load(handle)
+    return data
