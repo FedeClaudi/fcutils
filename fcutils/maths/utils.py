@@ -15,9 +15,19 @@ from scipy.interpolate import interp1d
 from collections import namedtuple
 from scipy import stats
 
+def rolling_mean(a, n):
+  a1 = pd.Series(a)
+  moving_avg = np.array(a1.rolling(window = n,min_periods=1).mean(center=True))
+
+  return moving_avg 
+
+
 
 def get_random_rows_from_array(A, num_rows_2_sample):
     return A[np.random.choice(A.shape[0], num_rows_2_sample, replace=False)]
+
+
+
 
 def derivative(x):
     """"
@@ -29,6 +39,8 @@ def derivative(x):
         d = np.zeros_like(x)
         d[1:, :] = np.diff(x, axis=0)
         return d
+
+
 
 def binArray(data, axis, binstep, binsize, func=np.nanmean):
     """
