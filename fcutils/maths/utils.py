@@ -23,8 +23,12 @@ def derivative(x):
     """"
         Takes the derivative of an array x
     """
-    return np.concatenate([[0], np.diff(x)])
-
+    if len(x.shape) == 1:
+        return np.concatenate([[0], np.diff(x)])
+    else:
+        d = np.zeros_like(x)
+        d[1:, :] = np.diff(x, axis=0)
+        return d
 
 def binArray(data, axis, binstep, binsize, func=np.nanmean):
     """
