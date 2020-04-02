@@ -16,6 +16,8 @@ from collections import namedtuple
 from scipy import stats
 
 
+def get_random_rows_from_array(A, num_rows_2_sample):
+    return A[np.random.choice(A.shape[0], num_rows_2_sample, replace=False)]
 
 def derivative(x):
     """"
