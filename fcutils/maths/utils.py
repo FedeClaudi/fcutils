@@ -15,6 +15,19 @@ from scipy.interpolate import interp1d
 from collections import namedtuple
 from scipy import stats
 
+
+def rolling_pearson_correlation(x, y, window_size):
+    # adapted from: https://towardsdatascience.com/four-ways-to-quantify-synchrony-between-time-series-data-b99136c4a9c9
+
+    # Interpolate missing data.
+    df = pd.DataFrame(dict(x=x, y=y))
+    df_interpolated = df.interpolate()
+
+    # Compute rolling window synchrony
+    rolling_r = df_interpolated['x'].rolling(window=window_size, center=True).corr(df_interpolated['y'])
+    return rolling_r.values
+
+
 def rolling_mean(a, n):
   a1 = pd.Series(a)
   moving_avg = np.array(a1.rolling(window = n,min_periods=1).mean(center=True))
