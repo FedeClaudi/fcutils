@@ -108,14 +108,14 @@ def get_cap_from_images_folder(folder, img_format="%1d.png"):
 
 
 # ---------------------- Create video from video capture --------------------- #
-def save_videocap_to_video(cap, savepath, fmt, fps=30):
+def save_videocap_to_video(cap, savepath, fmt, fps=30, iscolor=True):
     """
         Saves the content of a videocapture opencv object to a file
     """
     if "." not in fmt: fmt = "."+fmt
     # Creat video writer
     nframes, width, height, _, _ = get_video_params(cap)
-    writer = open_cvwriter(savepath, w=width, h=height, framerate=fps, format=fmt, iscolor=True)
+    writer = open_cvwriter(savepath, w=width, h=height, framerate=fps, format=fmt, iscolor=iscolor)
 
     # Save frames
     while True:
