@@ -87,14 +87,14 @@ def get_cap_from_file(videopath):
     return cap
 
 
-def get_cap_from_images_folder(folder):
+def get_cap_from_images_folder(folder, img_format="%1d.png"):
     if not os.path.isdir(folder):
         raise ValueError(f"Folder {folder} doesn't exist")
     if not os.listdir(folder):
         raise ValueError(f"Folder {folder} is empty")
 
     # Create video capture
-    cap = cv2.VideoCapture(os.path.join(folder, "%1d.png"))
+    cap = cv2.VideoCapture(os.path.join(folder, img_format))
 
     # Check all went well
     ret, frame = cap.read()
