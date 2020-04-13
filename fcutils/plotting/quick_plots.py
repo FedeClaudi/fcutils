@@ -7,8 +7,9 @@ from fcutils.plotting.utils import clean_axes
 """
 
 
-def quick_scatter(x, y, **kwargs):
+def quick_scatter(x, y, ax_kwargs={}, **kwargs):
     f, ax = plt.subplots()
     ax.scatter(x, y, **kwargs)
     clean_axes(f)
+    ax.set(**ax_kwargs)
     return  f, ax
