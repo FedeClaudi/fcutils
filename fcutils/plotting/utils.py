@@ -7,8 +7,15 @@ from matplotlib import gridspec
 from collections import namedtuple
 
 import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 
  
+def add_colorbar_to_img(img, ax, f, pos='right', orientation='vertical'):
+    divider = make_axes_locatable(ax)
+    cax = divider.append_axes(pos, size='5%', pad=0.05)
+    f.colorbar(img, cax=cax, orientation=orientation)
+
+
 def forceAspect(ax,aspect):
     """
         Forces the aspect ratio of an axis onto which an image what plotted with imshow.
