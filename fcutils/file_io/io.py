@@ -105,7 +105,7 @@ def save_yaml(filepath, content, append=False, topcomment=None):
 	:param content: dictionary of stuff to save
 
 	"""
-    if not "yaml" in filepath:
+    if not "yaml" in filepath and not "yml" in filepath:
         raise ValueError("filepath is invalid")
 
     if not append:
