@@ -110,6 +110,14 @@ def plot_shaded_withline(ax, x, y, z=None, label=None, alpha=0.15, **kwargs):
 		label {[type]} -- [description] (default: {None})
 		alpha {float} -- [description] (default: {.15})
 	"""
+
+    if z == 'min':#
+        z = np.nanmin(y)
+    elif z == "max":
+        z = np.nanmax(y)
+    elif z == "mean":
+        z = np.nanmean(y)
+
     if z is not None:
         ax.fill_between(x, z, y, alpha=alpha, **kwargs)
         # ax.fill_betweenx(y, z, x, alpha=alpha, **kwargs)
