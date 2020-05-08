@@ -121,7 +121,7 @@ def plot_shaded_withline(ax, x, y, z=None, label=None, orientation='hor', alpha=
     if z is not None:
         if orientation == 'hor':
             ax.fill_between(x, z, y, alpha=alpha, **kwargs)
-        elif orientatino == 'ver':
+        elif orientation == 'ver':
             ax.fill_between(y, z, x, alpha=alpha, **kwargs)
         else:
             raise ValueError
@@ -129,7 +129,7 @@ def plot_shaded_withline(ax, x, y, z=None, label=None, orientation='hor', alpha=
     else:
         if orientation == 'hor':
             ax.fill_between(x, y, alpha=alpha, **kwargs)
-        elif orientatino == 'ver':
+        elif orientation == 'ver':
             ax.fill_between(y, x, alpha=alpha, **kwargs)
         else:
             raise ValueError
