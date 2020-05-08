@@ -97,7 +97,7 @@ def hline_to_curve(
         ax.scatter(xval, y, **scatter_kwargs, **kwargs)
 
 
-def plot_shaded_withline(ax, x, y, z=None, label=None, alpha=0.15, **kwargs):
+def plot_shaded_withline(ax, x, y, z=None, label=None, orientation='hor', alpha=0.15, **kwargs):
     """[Plots a curve with shaded area and the line of the curve clearly visible]
 	
 	Arguments:
@@ -119,12 +119,20 @@ def plot_shaded_withline(ax, x, y, z=None, label=None, alpha=0.15, **kwargs):
         z = np.nanmean(y)
 
     if z is not None:
-        ax.fill_between(x, z, y, alpha=alpha, **kwargs)
-        # ax.fill_betweenx(y, z, x, alpha=alpha, **kwargs)
+        if orientation == 'hor':
+            ax.fill_between(x, z, y, alpha=alpha, **kwargs)
+        elif orientatino == 'ver':
+            ax.fill_between(y, z, x, alpha=alpha, **kwargs)
+        else:
+            raise ValueError
 
     else:
-        ax.fill_between(x, y, alpha=alpha, **kwargs)
-        # ax.fill_betweenx(y, x, alpha=alpha, **kwargs)
+        if orientation == 'hor':
+            ax.fill_between(x, y, alpha=alpha, **kwargs)
+        elif orientatino == 'ver':
+            ax.fill_between(y, x, alpha=alpha, **kwargs)
+        else:
+            raise ValueError
 
     ax.plot(x, y, alpha=1, label=label, **kwargs)
 
