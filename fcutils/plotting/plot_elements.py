@@ -11,6 +11,17 @@ from ..maths.stats import percentile_range
 from .matplotlib_config import *
 
 
+def plot_mean_and_error(y, yerr, ax, err_alpha=.3,  color='k', **kwargs):
+    alpha = kwargs.pop('alpha', 1)
+    lw = kwargs.pop('lw', 3)
+    err_color = kwargs.pop('err_color', color)
+    zorder = kwargs.pop('zorder', 90)
+    x = kwargs.pop('x', np.arange(len(y)))
+
+    ax.fill_between(x, y - yerr, y + yerr, alpha=err_alpha, zorder=zorder-1, color=err_color)
+    ax.plot(x, y, alpha=alpha, lw=lw, zorder=zorder, color=color)
+
+
 def ball_and_errorbar(x, y, data, ax, orientation='horizontal', color='k', s=100,  **kwargs):
     """
         Plots a line and a ball on top of it, used to plot
