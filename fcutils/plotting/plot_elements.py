@@ -19,7 +19,7 @@ def plot_mean_and_error(y, yerr, ax, err_alpha=.3,  color='k', **kwargs):
     x = kwargs.pop('x', np.arange(len(y)))
 
     ax.fill_between(x, y - yerr, y + yerr, alpha=err_alpha, zorder=zorder-1, color=err_color)
-    ax.plot(x, y, alpha=alpha, lw=lw, zorder=zorder, color=color)
+    ax.plot(x, y, alpha=alpha, lw=lw, zorder=zorder, color=color,  **kwargs)
 
 
 def ball_and_errorbar(x, y, data, ax, orientation='horizontal', color='k', s=100,  **kwargs):

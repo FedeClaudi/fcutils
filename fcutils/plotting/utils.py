@@ -9,7 +9,24 @@ from collections import namedtuple
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
- 
+def make_axes_at_center(ax):
+    """
+        from https://stackoverflow.com/questions/31556446/how-to-draw-axis-in-the-middle-of-the-figure
+    """
+    # Move left y-axis and bottim x-axis to centre, passing through (0,0)
+    ax.spines['left'].set_position('center')
+    ax.spines['bottom'].set_position('center')
+
+    # Eliminate upper and right axes
+    ax.spines['right'].set_color('none')
+    ax.spines['top'].set_color('none')
+
+    # Show ticks in the left and lower axes only
+    ax.xaxis.set_ticks_position('bottom')
+    ax.yaxis.set_ticks_position('left')
+
+
+
 def add_colorbar_to_img(img, ax, f, pos='right', orientation='vertical'):
     divider = make_axes_locatable(ax)
     cax = divider.append_axes(pos, size='5%', pad=0.05)
