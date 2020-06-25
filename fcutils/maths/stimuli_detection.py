@@ -5,6 +5,7 @@ sys.path.append("./")
 
 import numpy as np
 import pandas as pd
+from collections import namedtuple
 
 from .filtering import *
 
