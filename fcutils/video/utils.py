@@ -56,6 +56,10 @@ def get_video_params(cap):
         cap = cv2.VideoCapture(cap)
 
     frame = get_cap_selected_frame(cap, 0)
+    
+    if frame is None:
+        raise ValueError("Could not read frame from cap while getting video params")
+    
     if frame.shape[1] == 3:
         is_color = True
     else: is_color = False
