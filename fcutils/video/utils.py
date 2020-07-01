@@ -108,9 +108,9 @@ def get_cap_from_images_folder(folder, img_format="%1d.png"):
         cap_set_frame(cap, 0)
         
     # Check correct number of frames
-    nframes, width, height, fps, is_color = get_video_params(cap)
-    if nframes != len(os.listdir(folder)):
-        raise ValueError(f'expected {len(os.listdir(folder))} but got {nframes} frames')
+    # nframes, width, height, fps, is_color = get_video_params(cap)
+    # if nframes != len(os.listdir(folder)):
+    #     raise ValueError(f'expected {len(os.listdir(folder))} but got {nframes} frames')
 
     return cap
 
