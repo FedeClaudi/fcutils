@@ -147,12 +147,12 @@ def save_figure(f, path, svg=False, verbose=True, close=False):
 		Paths should be the complete path to where the figure should be saved but without suffix
 	"""
     if svg:
-        f.savefig("{}.svg".format(path))
+        f.savefig("{}.svg".format(str(path)))
 
-    f.savefig("{}.png".format(path))
+    f.savefig("{}.png".format(str(path)))
 
     if verbose:
-        print(" saved figure at: " + path)
+        print(" saved figure at: " + str(path))
     
     if close:
         plt.close(f)
