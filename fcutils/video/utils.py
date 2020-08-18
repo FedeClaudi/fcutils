@@ -56,6 +56,10 @@ def get_video_params(cap):
         cap = cv2.VideoCapture(cap)
 
     frame = get_cap_selected_frame(cap, 0)
+    
+    if frame is None:
+        raise ValueError("Could not read frame from cap while getting video params")
+    
     if frame.shape[1] == 3:
         is_color = True
     else: is_color = False
@@ -102,6 +106,12 @@ def get_cap_from_images_folder(folder, img_format="%1d.png"):
         raise ValueError("Something went wrong, can't read form folder: " + folder)
     else:
         cap_set_frame(cap, 0)
+        
+    # Check correct number of frames
+    # nframes, width, height, fps, is_color = get_video_params(cap)
+    # if nframes != len(os.listdir(folder)):
+    #     raise ValueError(f'expected {len(os.listdir(folder))} but got {nframes} frames')
+
     return cap
 
 
