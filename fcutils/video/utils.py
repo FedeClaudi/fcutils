@@ -323,7 +323,7 @@ def trim_clip(
 
     # Open reader and writer
     cap = cv2.VideoCapture(videopath)
-    nframes, width, height, fps = get_video_params(cap)
+    nframes, width, height, fps, is_color = get_video_params(cap)
 
     if sel_fps is not None:
         fps = sel_fps
@@ -333,7 +333,7 @@ def trim_clip(
         h=height,
         framerate=int(fps),
         format=".mp4",
-        iscolor=False,
+        iscolor=is_color,
     )
 
     # if in proportion mode get start and stop mode
