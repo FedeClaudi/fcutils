@@ -1,13 +1,37 @@
 import os
 import numpy as np
 import seaborn as sns
-
+import math
 from matplotlib import cm
 from matplotlib import gridspec
 from collections import namedtuple
 
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
+
+
+def calc_nrows_ncols(N, aspect=(16,9)):
+    """
+        Computs the number of rows and columns to fit
+        a given number N of subplots in a figure with
+        aspect `aspect`.
+
+        from: https://stackoverflow.com/questions/36482328/how-to-use-a-python-produce-as-many-subplots-of-arbitrary-size-as-necessary-acco
+    """
+    width = aspect[0]
+    height = aspect[1]
+    area = width*height*1.0
+    factor = (N/area)**(1/2.0)
+    cols = math.floor(width*factor)
+    rows = math.floor(height*factor)
+    rowFirst = width < height
+    while rows*cols < N:
+        if rowFirst:
+            rows += 1
+        else:
+            cols += 1
+        rowFirst = not(rowFirst)
+    return rows, cols
 
 def make_axes_at_center(ax):
     """
