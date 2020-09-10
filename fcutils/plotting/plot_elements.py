@@ -11,6 +11,14 @@ from ..maths.stats import percentile_range
 from .matplotlib_config import *
 
 
+def plot_line_outlined(ax, x, y=None, lw=2, outline=1, outline_color='k', color='r', **kwargs):
+    if y is not None:
+        ax.plot(x, y, lw=lw+outline, color=outline_color)
+        ax.plot(x, y, lw=lw, color=color, **kwargs)
+    else:
+        ax.plot(x, lw=lw+outline, color=outline_color)
+        ax.plot(x, lw=lw, color=color, **kwargs)
+
 def plot_mean_and_error(y, yerr, ax, err_alpha=.3,  color='k', **kwargs):
     alpha = kwargs.pop('alpha', 1)
     lw = kwargs.pop('lw', 3)
