@@ -8,13 +8,48 @@ import pandas as pd
 from collections import namedtuple
 
 from .filtering import *
+from .utils import derivative
 
-
-# raise NotImplementedError("This code is old and should not be used, better functions are available in behaviour")
 
 """
     Collection of functions that analyse AI time series data to find the start and end of stimuli delivered through Mantis
 """
+
+def get_onset_offset(signal, th, clean=True):
+    '''
+        Get onset/offset times when a signal goes below>above and
+        above>below a given threshold
+
+        Arguments:
+            signal: 1d numpy array
+            th: float, threshold
+            clean: bool. If true ends before the first start and 
+                starts after the last end are removed
+    '''
+    above = np.zeros_like(signal)
+    above[signal >= th] = 1
+
+    der = derivative(above)
+    starts = np.where(der > 0)[0]
+    ends = np.where(der < 0)[0]
+
+    if above[0] > 0:
+        starts = np.concatenate([[0], starts])
+
+
+    if clean:
+        ends = np.array([e for e in ends if e > starts[0]])
+
+        if np.any(ends):
+            starts = np.array([s for s in starts if s < ends[-1]])
+
+    if not np.any(starts):
+        starts = np.array([0])
+    if not np.any(ends):
+        ends = np.array([len(signal)])
+
+    return starts, ends
+
 
 
 def find_peaks_in_signal(signal, time_limit, th, above=True):
