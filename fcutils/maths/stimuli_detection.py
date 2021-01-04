@@ -35,7 +35,8 @@ def get_onset_offset(signal, th, clean=True):
 
     if above[0] > 0:
         starts = np.concatenate([[0], starts])
-
+    if above[-1] > 0:
+        ends = np.concatenate([ends, [len(signal)]])
 
     if clean:
         ends = np.array([e for e in ends if e > starts[0]])
