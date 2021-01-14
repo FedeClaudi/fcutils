@@ -42,16 +42,14 @@ def get_random_rows_from_array(A, num_rows_2_sample):
 
 
 
-def derivative(x):
+def derivative(x, axis=None):
     """"
         Takes the derivative of an array x
     """
     if len(x.shape) == 1:
         return np.concatenate([[0], np.diff(x)])
     else:
-        d = np.zeros_like(x)
-        d[1:, :] = np.diff(x, axis=0)
-        return d
+        return np.diff(self.h[trialn, :, :], n=1, axis=axis, prepend=0)
 
 
 
