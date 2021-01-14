@@ -49,7 +49,7 @@ def derivative(x, axis=None):
     if len(x.shape) == 1:
         return np.concatenate([[0], np.diff(x)])
     else:
-        return np.diff(self.h[trialn, :, :], n=1, axis=axis, prepend=0)
+        return np.diff(x, n=1, axis=axis, prepend=0)
 
 
 
