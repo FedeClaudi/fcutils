@@ -5,10 +5,7 @@ from matplotlib import cm
 from matplotlib import gridspec
 from collections import namedtuple
 
-from ..maths.utils import find_nearest
-from ..maths.stats import percentile_range
-
-from .matplotlib_config import *
+from fcutils.maths.array import find_nearest, percentile_range
 
 
 def plot_line_outlined(ax, x, y=None, lw=2, outline=1, outline_color='k', color='r', **kwargs):
@@ -43,8 +40,6 @@ def ball_and_errorbar(x, y, data, ax, orientation='horizontal', color='k', s=100
 
     ax.scatter(x, y, color=color, s=s, zorder=99)
 
-
-# ! plotting functions
 def ortholines(
     ax, orientations, values, color=[0.7, 0.7, 0.7], lw=3, alpha=0.5, ls="--", **kwargs
 ):
