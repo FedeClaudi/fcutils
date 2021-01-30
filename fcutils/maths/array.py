@@ -1,17 +1,19 @@
 import numpy as np
+from scipy import stats
+from collections import namedtuple
+
 
 def find_nearest(X, value):
-    '''
+    """
         Finds the index of the array value that is closest to a target value.
 
         Arguments:
             X: np.ndarray with data
             value: float, int. Value
-    '''
+    """
 
-    idx = np.abs(a - a0).argmin()
-    return a.flat[idx]
-
+    idx = np.abs(X - value).argmin()
+    return X.flat[idx]
 
 
 def percentile_range(X, low=5, high=95):
@@ -22,7 +24,7 @@ def percentile_range(X, low=5, high=95):
         Arguments:
             X: data
             low, high: int. Low and high percentiles
-	"""
+    """
 
     lowp = np.nanpercentile(X, low)
     highp = np.nanpercentile(X, high)

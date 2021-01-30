@@ -1,15 +1,16 @@
 from rich.progress import (
     Progress,
     BarColumn,
-    DownloadColumn,
     TextColumn,
-    TransferSpeedColumn,
-    TimeRemainingColumn,
+    ProgressColumn,
 )
+from rich.text import Text
+from datetime import timedelta
 
 from myterial import (
     orange,
-    amber_light,
+    teal_light,
+    light_blue_light,
 )
 
 
@@ -57,25 +58,23 @@ class SpeedColumn(TextColumn):
 
 
 progress = Progress(
-        description,
-        BarColumn(bar_width=None),
-        'Completed: ',
-        TextColumn("[bold magenta]Completed {task.completed}/{task.total}"),
-        "([progress.percentage]{task.percentage:>3.0f}%)",
-        'Speed: ',
-        SpeedColumn(),
-        "•",
-        'Remaining: ',
-        TimeRemainingColumn(),
-        'Elpsed: ',
-        TimeElapsedColumn(),
-        transient=False,
-    )
+    BarColumn(bar_width=None),
+    "Completed: ",
+    TextColumn("[bold magenta]Completed {task.completed}/{task.total}"),
+    "([progress.percentage]{task.percentage:>3.0f}%)",
+    "Speed: ",
+    SpeedColumn(),
+    "•",
+    "Remaining: ",
+    TimeRemainingColumn(),
+    "Elpsed: ",
+    TimeElapsedColumn(),
+    transient=False,
+)
 
 
-
-def track(iterable, total=None, description='Working...'):
-    '''
+def track(iterable, total=None, description="Working..."):
+    """
         Spawns a progress bar to monitor the progress of a for loop over
         an iterable sequence with detailed information.
 
@@ -86,14 +85,16 @@ def track(iterable, total=None, description='Working...'):
 
         Returs:
             elements of iterable
-    '''
-    description = f'[{orange}]' + description
+    """
+    description = f"[{orange}]" + description
 
     if total is None:
         try:
             total = len(iterable)
         except Exception:
-            raise ValueError('Could not get total from iterable, pass a total value.')
+            raise ValueError(
+                "Could not get total from iterable, pass a total value."
+            )
 
     with progress:
         yield from progress.track(

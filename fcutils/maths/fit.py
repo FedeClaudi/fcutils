@@ -1,8 +1,9 @@
 import statsmodels.api as sm
 import numpy as np
 
+
 def fit_polynomial(order, X, Y):
-    '''
+    """
         Fits a polinomia to data, with numpy
 
         Arguments:
@@ -11,7 +12,7 @@ def fit_polynomial(order, X, Y):
 
         Reurns:
             f: np.array with fitted polynomial
-    '''
+    """
     #  calculate polynomial
     z = np.polyfit(X, Y, order)
     f = np.poly1d(z)
@@ -19,7 +20,7 @@ def fit_polynomial(order, X, Y):
 
 
 def linear_regression(X, Y, robust=False, rais_on_nan=False):
-    '''
+    """
         Fits a linear regression and returns the results and parameters
 
         Arguments:
@@ -33,11 +34,15 @@ def linear_regression(X, Y, robust=False, rais_on_nan=False):
             slope: float. SLope of linear regression
             intercept: float. Intercept of linear regressoin
             res: Results object with fitted model
-    '''
+    """
     # remove NANs
-    remove_idx = [i for i, (x, y) in enumerate(zip(X, Y)) if np.isnan(x) or np.isnan(y)]
+    remove_idx = [
+        i for i, (x, y) in enumerate(zip(X, Y)) if np.isnan(x) or np.isnan(y)
+    ]
     if rais_on_nan and remove_idx:
-        raise ValueError('Found invalid values in input data during linear regression')
+        raise ValueError(
+            "Found invalid values in input data during linear regression"
+        )
 
     X = np.delete(X, remove_idx)
     Y = np.delete(Y, remove_idx)
@@ -63,5 +68,5 @@ def fit_kde(X, **kwargs):
     X = np.array(X).astype(np.float)
     kde = sm.nonparametric.KDEUnivariate(X)
     kde.fit(**kwargs)  # Estimate the densities
-    
+
     return kde
