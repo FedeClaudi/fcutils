@@ -13,7 +13,7 @@ requirements = [
 
 setup(
     name="fcutils",
-    version="1.0.2",
+    version="1.0.4a",
     author_email="federicoclaudi@protonmail.com",
     description="bunch of utility functions",
     packages=find_namespace_packages(exclude=()),
