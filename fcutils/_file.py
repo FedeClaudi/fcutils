@@ -8,6 +8,7 @@ def raise_on_path_not_exists(func):
     """
 
     def inner(*args, **kwargs):
+        args = list(args)
         path = args[0]
         if not path.exists():
             raise FileNotFoundError(f"File or folder: {path} does not exist")
@@ -38,6 +39,9 @@ def return_list_smart(func):
 
     def inner(*args, **kwargs):
         out = func(*args, **kwargs)
+        if not out:
+            return None
+
         if len(out) == 1:
             return out[0]
         else:
