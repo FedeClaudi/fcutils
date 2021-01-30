@@ -25,6 +25,7 @@ def pathify(func):
     """
 
     def inner(*args, **kwargs):
+        args = list(args)
         args[0] = Path(args[0])
         return func(*args, **kwargs)
 
@@ -45,6 +46,6 @@ def return_list_smart(func):
         if len(out) == 1:
             return out[0]
         else:
-            return out[1]
+            return out
 
     return inner
