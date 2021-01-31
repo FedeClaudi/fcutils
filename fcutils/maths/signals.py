@@ -113,8 +113,10 @@ def rolling_mean(X, window_size):
             window_size: int. Size of rolling window
     '''
     X = pd.Series(X)
-    moving_avg = np.array(X.rolling(window = window_size, min_periods=1).mean(center=True))
-
+    try:
+        moving_avg = np.array(X.rolling(window = window_size, min_periods=1).mean(center=True))
+    except ValueError:  # compatible with pandas versions
+        moving_avg = np.array(X.rolling(window = window_size, min_periods=1, center=True).mean())
     return moving_avg 
 
 
