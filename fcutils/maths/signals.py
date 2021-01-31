@@ -2,6 +2,42 @@ import pandas as pd
 import numpy as np
 from scipy.signal import resample
 
+def get_onset_offset(signal, th, clean=True):
+    '''
+        Get onset/offset times when a signal goes below>above and
+        above>below a given threshold
+        Arguments:
+            signal: 1d numpy array
+            th: float, threshold
+            clean: bool. If true ends before the first start and 
+                starts after the last end are removed
+    '''
+    above = np.zeros_like(signal)
+    above[signal >= th] = 1
+
+    der = derivative(above)
+    starts = np.where(der > 0)[0]
+    ends = np.where(der < 0)[0]
+
+    if above[0] > 0:
+        starts = np.concatenate([[0], starts])
+    if above[-1] > 0:
+        ends = np.concatenate([ends, [len(signal)]])
+
+    if clean:
+        ends = np.array([e for e in ends if e > starts[0]])
+
+        if np.any(ends):
+            starts = np.array([s for s in starts if s < ends[-1]])
+
+    if not np.any(starts):
+        starts = np.array([0])
+    if not np.any(ends):
+        ends = np.array([len(signal)])
+
+    return starts, ends
+
+
 
 def smooth_hanning(x, window_len=11):
     """smooth the data using a window with requested size.
@@ -71,12 +107,12 @@ def rolling_mean(X, window_size):
             window_size: int. Size of rolling window
     """
     X = pd.Series(X)
-    moving_avg = np.array(
-        X.rolling(window=window_size, min_periods=1).mean(center=True)
-    )
 
-    return moving_avg
-
+    try:
+        moving_avg = np.array(X.rolling(window = window_size, min_periods=1).mean(center=True))
+    except TypeError:  # compatible with pandas versions
+        moving_avg = np.array(X.rolling(window = window_size, min_periods=1, center=True).mean())
+    return moving_avg 
 
 def derivative(X, axis=0, order=1):
     """"
