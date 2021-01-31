@@ -6,6 +6,42 @@ from scipy.signal import medfilt as median_filter
 from scipy.interpolate import interp1d
 from math import factorial
 
+def get_onset_offset(signal, th, clean=True):
+    '''
+        Get onset/offset times when a signal goes below>above and
+        above>below a given threshold
+        Arguments:
+            signal: 1d numpy array
+            th: float, threshold
+            clean: bool. If true ends before the first start and 
+                starts after the last end are removed
+    '''
+    above = np.zeros_like(signal)
+    above[signal >= th] = 1
+
+    der = derivative(above)
+    starts = np.where(der > 0)[0]
+    ends = np.where(der < 0)[0]
+
+    if above[0] > 0:
+        starts = np.concatenate([[0], starts])
+    if above[-1] > 0:
+        ends = np.concatenate([ends, [len(signal)]])
+
+    if clean:
+        ends = np.array([e for e in ends if e > starts[0]])
+
+        if np.any(ends):
+            starts = np.array([s for s in starts if s < ends[-1]])
+
+    if not np.any(starts):
+        starts = np.array([0])
+    if not np.any(ends):
+        ends = np.array([len(signal)])
+
+    return starts, ends
+
+
 
 def smooth_hanning(x,vwindow_len=11):
     """smooth the data using a window with requested size.
