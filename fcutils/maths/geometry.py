@@ -14,7 +14,7 @@ from scipy.interpolate import interp1d
 from collections import namedtuple
 from scipy import stats
 
-from fcutils.maths.utils import derivative
+from fcutils.maths import derivative
 
 def subtract_angles(lhs, rhs):
     """Return the signed difference between angles lhs and rhs
