@@ -129,5 +129,5 @@ def derivative(X, axis=0, order=1):
             order: int. Derivative order
     """
 
-    return np.diff(x, n=order, axis=axis, prepend=0)
+    return np.diff(X, n=order, axis=axis, prepend=0)
 
