@@ -1,10 +1,6 @@
 import pandas as pd
 import numpy as np
-from scipy.signal import butter, lfilter, freqz, resample, wiener, gaussian
-from scipy.ndimage import filters
-from scipy.signal import medfilt as median_filter
-from scipy.interpolate import interp1d
-from math import factorial
+from scipy.signal import resample
 
 def get_onset_offset(signal, th, clean=True):
     '''
@@ -43,7 +39,7 @@ def get_onset_offset(signal, th, clean=True):
 
 
 
-def smooth_hanning(x,vwindow_len=11):
+def smooth_hanning(x, window_len=11):
     """smooth the data using a window with requested size.
     
     This method is based on the convolution of a scaled window with the signal.
@@ -58,33 +54,28 @@ def smooth_hanning(x,vwindow_len=11):
         the smoothed signal
     
     """
-    s=np.r_[x[window_len-1:0:-1],x,x[-2:-window_len-1:-1]]
-    #print(len(s))
-    if window == 'flat': #moving average
-        w=np.ones(window_len,'d')
-    else:
-        w=eval('np.'+window+'(window_len)')
-
-    y=np.convolve(w/w.sum(),s,mode='valid')
+    s = np.r_[x[window_len - 1 : 0 : -1], x, x[-2 : -window_len - 1 : -1]]
+    w = eval("np." + window_len + "(window_len)")
+    y = np.convolve(w / w.sum(), s, mode="valid")
     return y
 
 
 def upsample_signal(X, original_sampling_rate, target_sampling_rate):
-    '''
+    """
         Updamples a signal to a target sampling rate
 
         Arguments:
             X: np.array with data
             original_sampling_rate: int. Sampling rate of input data
             target_sampling_rate: int. Sampling rate of output data
-    '''
+    """
     n_seconds = len(X) / original_sampling_rate
     goal_n_samples = np.int(n_seconds * target_sampling_rate)
     return resample(X, goal_n_samples)
 
 
 def rolling_pearson_correlation(X, Y, window_size):
-    '''
+    """
         Computs the rolling (windowed) Pearson's
         correlation between two time series
 
@@ -92,33 +83,36 @@ def rolling_pearson_correlation(X, Y, window_size):
             X: 1d np.array with data
             Y: 1d np.array with data
             window_size: int. Size of rolling window
-    '''
+    """
 
     # Interpolate missing data.
     df = pd.DataFrame(dict(X=X, Y=Y))
     df_interpolated = df.interpolate()
 
     # Compute rolling window synchrony
-    rolling_r = df_interpolated['X'].rolling(window=window_size, center=True).corr(df_interpolated['Y'])
+    rolling_r = (
+        df_interpolated["X"]
+        .rolling(window=window_size, center=True)
+        .corr(df_interpolated["Y"])
+    )
     return rolling_r.values
 
 
-
 def rolling_mean(X, window_size):
-    '''
+    """
         Computs the rolling mean of a signal
 
         Arguments:
             X: 1d np.array with data
             window_size: int. Size of rolling window
-    '''
+    """
     X = pd.Series(X)
+
     try:
         moving_avg = np.array(X.rolling(window = window_size, min_periods=1).mean(center=True))
     except TypeError:  # compatible with pandas versions
         moving_avg = np.array(X.rolling(window = window_size, min_periods=1, center=True).mean())
     return moving_avg 
-
 
 def derivative(X, axis=0, order=1):
     """"
@@ -132,4 +126,3 @@ def derivative(X, axis=0, order=1):
     """
 
     return np.diff(X, n=order, axis=axis, prepend=0)
-
