@@ -21,7 +21,7 @@ requirements = [
 
 setup(
     name="fcutils",
-    version="0.1.4.5",
+    version="1.1",
     author_email="federicoclaudi@protonmail.com",
     description="bunch of utility functions",
     packages=find_namespace_packages(exclude=()),
