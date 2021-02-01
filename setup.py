@@ -9,6 +9,7 @@ requirements = [
     "scipy",
     "pyyaml",
     "statsmodels",
+    "loguru",
 ]
 
 setup(

@@ -1,4 +1,5 @@
 import cv2
+from loguru import logger
 
 from fcutils._video import open_video
 from fcutils._file import pathify, raise_on_path_not_exists
@@ -60,6 +61,7 @@ def get_cap_selected_frame(cap, frame_number):
     ret, frame = cap.read()
 
     if not ret:
+        logger.debug(f"FCUTILS: failed to read frame {frame_number}.")
         return None
     else:
         return frame
@@ -164,6 +166,9 @@ def trim_clip(
     for framen in range(start_frame, end_frame):
         ret, frame = video.read()
         if not ret:
+            logger.debug(
+                f"FCUTILS: failed to read frame {framen} while trimming clip [{nframes} frames long]."
+            )
             break
         else:
             if not is_color:
