@@ -73,8 +73,11 @@ def size(path, fmt=True):
 @pathify
 def to_json(filepath, obj):  # pragma: no cover
     """ saves an object to json """
+    if isinstance(obj, str):
+        obj = json.loads(obj, indent=4, sort_keys=True)
+
     with open(filepath, "w") as out:
-        json.dump(obj, out)
+        json.dump(obj, out, indent=4, sort_keys=True)
 
 
 @pathify

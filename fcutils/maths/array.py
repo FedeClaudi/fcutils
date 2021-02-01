@@ -13,7 +13,7 @@ def find_nearest(X, value):
     """
 
     idx = np.abs(X - value).argmin()
-    return X.flat[idx]
+    return idx
 
 
 def percentile_range(X, low=5, high=95):
