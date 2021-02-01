@@ -10,7 +10,10 @@ def open_video(func):
 
     def inner(*args, **kwargs):
         if isinstance(args[0], (str, Path)):
+            args = list(args)
             args[0] = cv2.VideoCapture(str(args[0]))
+            return func(*args, **kwargs)
+        else:
             return func(*args, **kwargs)
 
     return inner

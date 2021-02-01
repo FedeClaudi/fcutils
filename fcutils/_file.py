@@ -1,14 +1,16 @@
 from pathlib import Path
 
-def sizeof_fmt(num, suffix='B'):
-    '''
+
+def sizeof_fmt(num, suffix="B"):
+    """
         Returns a size in bytes to a human
         readable format
-    '''
-    for unit in ['','K','M','G','T','P','E','Z', 'Y']:
+    """
+    for unit in ["", "K", "M", "G", "T", "P", "E", "Z", "Y"]:
         if abs(num) < 1024.0:
-            return f'{num:.2f} {unit}{suffix}'
+            return f"{num:.2f} {unit}{suffix}"
         num /= 1024.0
+
 
 def raise_on_path_not_exists(func):
     """

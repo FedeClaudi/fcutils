@@ -2,8 +2,9 @@ import pandas as pd
 import numpy as np
 from scipy.signal import resample
 
+
 def get_onset_offset(signal, th, clean=True):
-    '''
+    """
         Get onset/offset times when a signal goes below>above and
         above>below a given threshold
         Arguments:
@@ -11,7 +12,7 @@ def get_onset_offset(signal, th, clean=True):
             th: float, threshold
             clean: bool. If true ends before the first start and 
                 starts after the last end are removed
-    '''
+    """
     above = np.zeros_like(signal)
     above[signal >= th] = 1
 
@@ -36,7 +37,6 @@ def get_onset_offset(signal, th, clean=True):
         ends = np.array([len(signal)])
 
     return starts, ends
-
 
 
 def smooth_hanning(x, window_len=11):
@@ -109,10 +109,15 @@ def rolling_mean(X, window_size):
     X = pd.Series(X)
 
     try:
-        moving_avg = np.array(X.rolling(window = window_size, min_periods=1).mean(center=True))
+        moving_avg = np.array(
+            X.rolling(window=window_size, min_periods=1).mean(center=True)
+        )
     except TypeError:  # compatible with pandas versions
-        moving_avg = np.array(X.rolling(window = window_size, min_periods=1, center=True).mean())
-    return moving_avg 
+        moving_avg = np.array(
+            X.rolling(window=window_size, min_periods=1, center=True).mean()
+        )
+    return moving_avg
+
 
 def derivative(X, axis=0, order=1):
     """"

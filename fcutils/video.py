@@ -129,12 +129,7 @@ def get_cap_from_images_folder(folder, img_format="%1d.png"):
 # --------------------------------- trim clip -------------------------------- #
 @open_video
 def trim_clip(
-    video,
-    savepath,
-    start_frame=None,
-    stop_frame=None,
-    end_frame=int,
-    fps=None,
+    video, savepath, start_frame=0, end_frame=-1, fps=None,
 ):
     """trim_clip [take a videopath, open it and save a trimmed version between start and stop. Either 
     looking at a proportion of video (e.g. second half) or at start and stop frames]
@@ -145,8 +140,8 @@ def trim_clip(
     
     Keyword Arguments:
         frame_mode {bool} -- [define start and stop time as frame numbers] (default: {False})
-        start_frame {[type]} -- [video frame to stat at ] (default: {None})
-        end_frame {[type]} -- [videoframe to stop at ] (default: {None})
+        start_frame {int} -- [video frame to stat at ] (default: {None})
+        end_frame {int} -- [videoframe to stop at ] (default: {None})
         fps {[int]}(default, None) -- [specify the fps of the output]
     """
 
@@ -156,7 +151,7 @@ def trim_clip(
 
     # open writer
     writer = open_cvwriter(
-        savepath,
+        str(savepath),
         w=width,
         h=height,
         framerate=int(fps),

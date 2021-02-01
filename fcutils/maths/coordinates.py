@@ -2,7 +2,7 @@ import numpy as np
 
 
 def R(theta):
-    '''
+    """
         Returns the rotation matrix necessary to remove the
         rotation of an object centered at the origin
 
@@ -11,11 +11,11 @@ def R(theta):
 
         Returns:
             R: 2x2 np.ndarray with rotation matrix
-    '''
+    """
     theta = np.radians(theta)
     return np.array(
-            [[np.cos(theta), -np.sin(theta)], [np.sin(theta), np.cos(theta)]]
-        )
+        [[np.cos(theta), -np.sin(theta)], [np.sin(theta), np.cos(theta)]]
+    )
 
 
 def cart2pol(x, y):

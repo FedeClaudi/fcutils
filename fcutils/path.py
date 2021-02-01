@@ -3,7 +3,12 @@ import yaml
 import shutil
 import h5py
 
-from fcutils._file import raise_on_path_not_exists, pathify, return_list_smart, sizeof_fmt
+from fcutils._file import (
+    raise_on_path_not_exists,
+    pathify,
+    return_list_smart,
+    sizeof_fmt,
+)
 
 # ----------------------------------- find ----------------------------------- #
 @pathify
@@ -38,29 +43,32 @@ def delete(path):  # pragma: no cover
     else:
         path.unlink()
 
+
 # ----------------------------------- info ----------------------------------- #
 
 
 @pathify
 @raise_on_path_not_exists
 def size(path, fmt=True):
-    '''
+    """
         Returns the size of a file or folder
         
         Arguments:
             path: str, Path to file or folder
             fmt: bool. If true a formatted string is returned
-    '''
+    """
 
     if path.is_file():
         size = path.stat().st_size
     else:
-        size = sum(f.stat().st_size for f in path.glob('**/*') if f.is_file())
+        size = sum(f.stat().st_size for f in path.glob("**/*") if f.is_file())
 
     if fmt:
         return sizeof_fmt(size)
     else:
         return size
+
+
 # ---------------------------------- saving ---------------------------------- #
 @pathify
 def to_json(filepath, obj):  # pragma: no cover
