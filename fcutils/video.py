@@ -104,6 +104,16 @@ def get_video_params(video):
 # ---------------------------- open videocaptures ---------------------------- #
 
 
+def get_cap_from_file(path):
+    '''
+        Opens a cv2 video capture from a file path
+    '''
+    try:
+        return  cv2.VideoCapture(str(path))
+    except Exception:
+        logger.warning(f'Failed to open cap for video at: {path}')
+        return None
+
 @pathify
 @raise_on_path_not_exists
 def get_cap_from_images_folder(folder, img_format="%1d.png"):
