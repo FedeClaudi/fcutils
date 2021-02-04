@@ -3,4 +3,3 @@ omit =
     fcutils/plot/*
     fcutils/video.py
     fcutils/_video.py
-    fcutils/progress.py

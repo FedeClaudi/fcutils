@@ -57,7 +57,7 @@ class SpeedColumn(TextColumn):
             return f"{task.speed:.1f} steps/s"
 
 
-progress = Progress(
+COLUMNS = [
     BarColumn(bar_width=None),
     "Completed: ",
     TextColumn("[bold magenta]Completed {task.completed}/{task.total}"),
@@ -70,11 +70,12 @@ progress = Progress(
     TimeRemainingColumn(),
     "Elpsed: ",
     TimeElapsedColumn(),
-    transient=False,
-)
+]
+
+progress = Progress(*COLUMNS, transient=False,)
 
 
-def track(iterable, total=None, description="Working..."):
+def track(iterable, total=None, description="Working...", transient=False):
     """
         Spawns a progress bar to monitor the progress of a for loop over
         an iterable sequence with detailed information.
@@ -88,6 +89,7 @@ def track(iterable, total=None, description="Working..."):
             elements of iterable
     """
     description = f"[{orange}]" + description
+    columns = [description] + COLUMNS
 
     if total is None:
         try:
@@ -97,7 +99,9 @@ def track(iterable, total=None, description="Working..."):
                 "Could not get total from iterable, pass a total value."
             )
 
-    with progress:
-        yield from progress.track(
+    track_progress = Progress(*columns, transient=transient)
+
+    with track_progress:
+        yield from track_progress.track(
             iterable, total=total, description=description,
         )
