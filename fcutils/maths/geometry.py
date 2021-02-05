@@ -179,9 +179,7 @@ def calc_angle_between_points_of_vector_2d(x, y):
         Given 2 1d arrays specifying for instance the X and Y coordinates at each frame,
         computes the angle between successive points (x,y)
     """
-    delta_x = derivative(x)
-    delta_y = derivative(y)
-    return calc_angles_with_arctan(delta_x, delta_y)
+    return np.arctan2(derivative(x), derivative(y))
 
 
 def calc_angle_between_vectors_of_points_2d(x1, y1, x2, y2):
