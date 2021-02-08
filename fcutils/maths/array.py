@@ -3,6 +3,25 @@ from scipy import stats
 from collections import namedtuple
 
 
+def unwrap(X, isdeg=True):
+    """
+        Unwraps an array of angular data.
+
+        Arguments:
+            X: np.array with data
+            isdeg: bool. If true the data is in degrees
+    """
+    if isdeg:
+        X = np.radians(X)
+
+    X = np.unwrap(X)
+
+    if isdeg:
+        X = np.degrees(X)
+
+    return X
+
+
 def find_nearest(X, value):
     """
         Finds the index of the array value that is closest to a target value.
