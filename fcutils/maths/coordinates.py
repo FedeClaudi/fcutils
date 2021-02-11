@@ -3,8 +3,8 @@ import numpy as np
 
 def R(theta):
     """
-        Returns the rotation matrix necessary to remove the
-        rotation of an object centered at the origin
+        Returns the rotation matrix for rotating an object
+        centered around the origin with a given angle
 
         Arguments:
             theta: angle in degrees
@@ -16,6 +16,30 @@ def R(theta):
     return np.array(
         [[np.cos(theta), -np.sin(theta)], [np.sin(theta), np.cos(theta)]]
     )
+
+
+def M(axis="x"):
+    """
+        Returns a matrix to mirror an object against a given axis
+
+        Arguments:
+            axis: str. 'x', 'y', 'origin' or 'xy'
+
+        Returns:
+            M: mirror matrix
+    """
+    if axis == "x":
+        return np.array([[1, 0], [0, -1]])
+    elif axis == "y":
+        return np.array([[-1, 0], [0, 1]])
+    elif axis == "origin":
+        return np.array([[-1, 0], [0, -1]])
+    elif axis == "xy":
+        return np.array([[0, 1], [1, 0]])
+    else:
+        raise NotImplementedError(
+            f"Could not recognize axis of mirroring: {axis}"
+        )
 
 
 def cart2pol(x, y):
