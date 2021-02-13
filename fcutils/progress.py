@@ -17,6 +17,7 @@ from myterial import (
 class TimeRemainingColumn(ProgressColumn):
     """Renders estimated time remaining."""
 
+    _table_column = None
     # Only refresh twice a second to prevent jitter
     max_refresh = 0.5
 
@@ -32,6 +33,7 @@ class TimeRemainingColumn(ProgressColumn):
 class TimeElapsedColumn(ProgressColumn):
     """Renders estimated time elapsed."""
 
+    _table_column = None
     # Only refresh twice a second to prevent jitter
     max_refresh = 0.5
 
@@ -46,6 +48,7 @@ class TimeElapsedColumn(ProgressColumn):
 
 class SpeedColumn(TextColumn):
     _renderable_cache = {}
+    _table_column = None
 
     def __init__(self, *args):
         pass
