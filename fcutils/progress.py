@@ -77,6 +77,11 @@ COLUMNS = [
 
 progress = Progress(*COLUMNS, transient=False,)
 
+progess_with_description = Progress(
+    *([TextColumn("[bold salmon]Task: {task.description}")] + COLUMNS),
+    transient=False,
+)
+
 
 def track(iterable, total=None, description="Working...", transient=False):
     """
