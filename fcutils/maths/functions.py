@@ -12,7 +12,7 @@ def exponential(x, a, b, c, d):
     return a * np.exp(-c * (x - b)) + d
 
 
-def flogarithmic(x, a, b, c):
+def logarithmic(x, a, b, c):
     return a * np.log(b * x) + c
 
 
