@@ -34,17 +34,27 @@ def plot_mean_and_error(y, yerr, ax, err_alpha=0.3, color="k", **kwargs):
 
 
 def ball_and_errorbar(
-    x, y, data, ax, orientation="horizontal", color="k", s=100, **kwargs
+    x,
+    y,
+    ax,
+    data=None,
+    prange=None,
+    orientation="horizontal",
+    color="k",
+    s=100,
+    **kwargs,
 ):
     """
         Plots a line and a ball on top of it, used to plot
         stuff like mean and CI.
     """
-    perc = percentile_range(data)
+    if prange is None:
+        prange = percentile_range(data)
+
     if orientation == "horizontal":
-        ax.plot([perc.low, perc.high], [y, y], color=color, **kwargs)
+        ax.plot([prange.low, prange.high], [y, y], color=color, **kwargs)
     else:
-        ax.plot([x, x], [perc.low, perc.high], color=color, **kwargs)
+        ax.plot([x, x], [prange.low, prange.high], color=color, **kwargs)
 
     ax.scatter(x, y, color=color, s=s, zorder=99)
 
