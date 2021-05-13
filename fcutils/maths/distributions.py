@@ -1,6 +1,16 @@
 import math
 import numpy as np
 from scipy import stats
+import statsmodels.api as sm
+
+
+def fit_kde(x, **kwargs):
+    """ Fit a KDE using StatsModels. 
+        kwargs is useful to pass stuff to the fit, e.g. the binwidth (bw)"""
+    x = np.array(x).astype(np.float)
+    kde = sm.nonparametric.KDEUnivariate(x)
+    kde.fit(**kwargs)  # Estimate the densities
+    return kde
 
 
 def get_distribution(dist, *args, n_samples=10000):
