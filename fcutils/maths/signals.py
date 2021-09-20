@@ -1,6 +1,23 @@
 import pandas as pd
 import numpy as np
 from scipy.signal import resample
+from scypi import stats
+
+
+def convolve_with_gaussian(
+    data: np.ndarray, kernel_width: int = 21
+) -> np.ndarray:
+    """
+        Convolves a 1D array with a gaussian kernel of given width
+    """
+    # create kernel and normalize area under curve
+    norm = stats.norm(0, kernel_width)
+    X = np.linspace(norm.ppf(0.0001), norm.ppf(0.9999), kernel_width)
+
+    _kernnel = norm.pdf(X)
+    kernel = _kernnel / np.sum(_kernnel)
+
+    return np.convolve(data, kernel, mode="same")
 
 
 def get_onset_offset(signal, th, clean=True):

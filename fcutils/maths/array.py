@@ -1,6 +1,24 @@
 import numpy as np
 from scipy import stats
 from collections import namedtuple
+import pandas as pd
+from scipy.signal import resample
+
+
+def resample_list_of_arrayes_to_avg_len(lst, N=None, interpolate=False):
+    """
+        Given a list of arrays of varying length, this function
+        resamples them so that they all have the 
+        average length.
+        Then it returns the vstack of the array
+    """
+    if N is None:
+        N = np.mean([len(x) for x in lst]).astype(np.int32)
+
+    if interpolate:
+        lst = [pd.Series(x).interpolate() for x in lst]
+
+    return np.vstack([resample(X, N) for X in lst])
 
 
 def unwrap(X, isdeg=True):
