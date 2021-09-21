@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from scipy.signal import resample
-from scypi import stats
+from scipy import stats
 
 
 def convolve_with_gaussian(
